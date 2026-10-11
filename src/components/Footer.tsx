@@ -124,6 +124,22 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenConsultation }
                 Contact Us
               </button>
             </li>
+            <li>
+              <button
+                onClick={() => onNavigate('signin')}
+                className="text-[#00236f] font-semibold text-sm hover:translate-x-1 transition-all inline-block cursor-pointer"
+              >
+                Client Sign In
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => onNavigate('signup')}
+                className="text-[#432200] font-semibold text-sm hover:translate-x-1 transition-all inline-block cursor-pointer"
+              >
+                Join Digital Estate
+              </button>
+            </li>
           </ul>
         </div>
 

@@ -7,13 +7,16 @@ export interface Property {
   location: string;
   price: number;
   priceDisplay: string;
+  rwfPriceDisplay?: string;
   propertyType: PropertyType;
   beds: number;
   baths: number;
   sqft: number;
+  areaM2?: number;
   image: string;
   gallery: string[];
   badge?: string;
+  rating?: number;
   isFeatured?: boolean;
   matchScore?: number;
   matchReason?: string;
@@ -26,6 +29,17 @@ export interface Property {
   parkingSpaces: number;
   lotSize: string;
   architect?: string;
+  mapPin?: {
+    top: string;
+    left: string;
+    label: string;
+  };
+  transitInfo?: {
+    destination: string;
+    walkingMins: number;
+    drivingMins: number;
+  };
+  isFavorite?: boolean;
 }
 
 export interface ConsultationRequest {
@@ -53,5 +67,16 @@ export interface User {
   createdAt?: string;
 }
 
-export type ActiveScreen = 'home' | 'properties' | 'invest' | 'about' | 'contact' | 'signin' | 'signup';
+export type ActiveScreen =
+  | 'home'
+  | 'properties'
+  | 'portfolio'
+  | 'saved'
+  | 'aimatches'
+  | 'messages'
+  | 'invest'
+  | 'about'
+  | 'contact'
+  | 'signin'
+  | 'signup';
 

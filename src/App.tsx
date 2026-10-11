@@ -12,9 +12,11 @@ import { PropertiesScreen } from './components/PropertiesScreen';
 import { InvestScreen } from './components/InvestScreen';
 import { AboutScreen } from './components/AboutScreen';
 import { ContactScreen } from './components/ContactScreen';
+import { SignInScreen } from './components/SignInScreen';
+import { SignUpScreen } from './components/SignUpScreen';
+import { FloatingAuthModal } from './components/FloatingAuthModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { ConsultationModal } from './components/ConsultationModal';
-import { FloatingAuthModal } from './components/FloatingAuthModal';
 
 function AppContent() {
   const [activeScreen, setActiveScreen] = useState<ActiveScreen>('home');
@@ -22,7 +24,7 @@ function AppContent() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [consultationPreselectedProperty, setConsultationPreselectedProperty] = useState<Property | null>(null);
 
-  // Floating Auth Modal State
+  // Floating Auth Modal State (Full-length floating modal over the website)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
 
@@ -35,11 +37,6 @@ function AppContent() {
     priceRange: '$200k - $500k',
     propertyType: 'Villa',
   });
-
-  const handleOpenAuth = (mode: 'signin' | 'signup' = 'signin') => {
-    setAuthModalMode(mode);
-    setIsAuthModalOpen(true);
-  };
 
   const handleSearchFromHero = (filters: {
     location: string;
@@ -65,6 +62,11 @@ function AppContent() {
     setIsConsultationOpen(true);
   };
 
+  const handleOpenAuth = (mode: 'signin' | 'signup' = 'signin') => {
+    setAuthModalMode(mode);
+    setIsAuthModalOpen(true);
+  };
+
   const handleNavigate = (screen: ActiveScreen) => {
     if (screen === 'signin') {
       handleOpenAuth('signin');
@@ -78,18 +80,22 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const isAuthScreen = activeScreen === 'signin' || activeScreen === 'signup';
+
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-['Inter'] text-[#191c1d] flex flex-col selection:bg-[#00236f] selection:text-white">
-      {/* Top Navigation Bar with unified Sign In / Sign Up icon button */}
-      <Navbar
-        activeScreen={activeScreen}
-        onNavigate={handleNavigate}
-        onOpenConsultation={handleOpenGeneralConsultation}
-        onOpenAuth={handleOpenAuth}
-      />
+      {/* Top Navigation Bar */}
+      {!isAuthScreen && (
+        <Navbar
+          activeScreen={activeScreen}
+          onNavigate={handleNavigate}
+          onOpenConsultation={handleOpenGeneralConsultation}
+          onOpenAuth={handleOpenAuth}
+        />
+      )}
 
       {/* Main Content Area */}
-      <main className="pt-20 flex-grow">
+      <main className={`flex-grow ${!isAuthScreen ? 'pt-20' : ''}`}>
         {activeScreen === 'home' && (
           <>
             {/* Hero Section */}
@@ -144,17 +150,34 @@ function AppContent() {
         )}
 
         {activeScreen === 'contact' && <ContactScreen />}
+
+        {/* Fallback Full-Length view if directly accessed */}
+        {activeScreen === 'signin' && (
+          <SignInScreen
+            onNavigateToSignUp={() => handleNavigate('signup')}
+            onNavigateToHome={() => handleNavigate('home')}
+          />
+        )}
+
+        {activeScreen === 'signup' && (
+          <SignUpScreen
+            onNavigateToSignIn={() => handleNavigate('signin')}
+            onNavigateToHome={() => handleNavigate('home')}
+          />
+        )}
       </main>
 
       {/* Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenConsultation={handleOpenGeneralConsultation}
-      />
+      {!isAuthScreen && (
+        <Footer
+          onNavigate={handleNavigate}
+          onOpenConsultation={handleOpenGeneralConsultation}
+        />
+      )}
 
-      {/* Floating Sign In / Sign Up Modal matching the user's attachment */}
+      {/* FLOATING BUT FULL-LENGTH SIGN IN & SIGN UP MODAL */}
       <FloatingAuthModal
-        key={`${isAuthModalOpen ? 'open' : 'closed'}-${authModalMode}`}
+        key={authModalMode}
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         initialMode={authModalMode}

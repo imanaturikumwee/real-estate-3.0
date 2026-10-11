@@ -319,6 +319,117 @@ async function startServer() {
   });
 
   // -------------------------------------------------------------
+  // Property & Portfolio Management Endpoints
+  // -------------------------------------------------------------
+
+  // Favorites store
+  const savedFavorites = new Set<string>(['horizon-residence', 'kivubelt-terraces']);
+
+  // Custom listed properties
+  const customProperties: any[] = [];
+
+  // Get all properties with optional search/filter
+  app.get('/api/properties', (req: Request, res: Response) => {
+    const { query, filter } = req.query;
+    res.json({
+      success: true,
+      favorites: Array.from(savedFavorites),
+      customProperties,
+    });
+  });
+
+  // Add a newly listed property
+  app.post('/api/properties', (req: Request, res: Response) => {
+    try {
+      const {
+        title,
+        neighborhood,
+        price,
+        priceDisplay,
+        rwfPriceDisplay,
+        propertyType,
+        beds,
+        baths,
+        areaM2,
+        image,
+        description,
+      } = req.body;
+
+      if (!title || !neighborhood) {
+        return res.status(400).json({ error: 'Title and neighborhood are required.' });
+      }
+
+      const newEstate = {
+        id: 'estate_' + Date.now().toString(36),
+        title: title.trim(),
+        neighborhood: neighborhood.trim(),
+        location: `${neighborhood.trim()}, Kigali`,
+        price: Number(price) || 500000,
+        priceDisplay: priceDisplay || `$${Number(price || 500000).toLocaleString()}`,
+        rwfPriceDisplay: rwfPriceDisplay || `${Math.round((Number(price) || 500000) / 18000)}M RWF`,
+        propertyType: propertyType || 'Villa',
+        beds: Number(beds) || 3,
+        baths: Number(baths) || 2,
+        sqft: (Number(areaM2) || 250) * 10.76,
+        areaM2: Number(areaM2) || 250,
+        rating: 9.0,
+        badge: 'Newly Listed',
+        image:
+          image ||
+          'https://lh3.googleusercontent.com/aida-public/AB6AXuAiD5Sf302m49Cgl-HKJ79zbgX_vYXr14YiY-2H3w1VccGCbknMc7gsPFVsvebvnaikmFIG90qJYlxf5cweT_l07hr1Ks94IrIQDYBSVfly_gNdV5KkXfm8s6U0r9VUx5kNCOqfIkPuwwCCctJqszViRLSBD-TqllsHp4q-8YjDHRVnAJl-fbU9obyTN9vslCKCvAy5sDSQOoAYZ4tcgi7C5EQoHF6dHHUSCCfGb2ImYaiwBT0Jjq1dEHcc9D628oT78YCPzen7-Yaq',
+        gallery: [image || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiD5Sf302m49Cgl-HKJ79zbgX_vYXr14YiY-2H3w1VccGCbknMc7gsPFVsvebvnaikmFIG90qJYlxf5cweT_l07hr1Ks94IrIQDYBSVfly_gNdV5KkXfm8s6U0r9VUx5kNCOqfIkPuwwCCctJqszViRLSBD-TqllsHp4q-8YjDHRVnAJl-fbU9obyTN9vslCKCvAy5sDSQOoAYZ4tcgi7C5EQoHF6dHHUSCCfGb2ImYaiwBT0Jjq1dEHcc9D628oT78YCPzen7-Yaq'],
+        architecturalStyle: 'Modern Contemporary Kigali Living',
+        description: description || 'Prime architectural residence listed on The Digital Estate platform.',
+        highlights: ['Verified land registry status', 'Prime Kigali road access', 'High residential yield area'],
+        zoning: 'R1A - Low Density Prime Residential',
+        estimatedRentalYield: '10.0% p.a.',
+        yearBuilt: 2024,
+        parkingSpaces: 2,
+        lotSize: '800 sqm',
+        mapPin: { top: `${35 + Math.floor(Math.random() * 25)}%`, left: `${40 + Math.floor(Math.random() * 25)}%`, label: rwfPriceDisplay?.split(' ')[0] || '40M' },
+        transitInfo: {
+          destination: 'Kigali City Center',
+          walkingMins: 15,
+          drivingMins: 5,
+        },
+        createdAt: new Date().toISOString(),
+      };
+
+      customProperties.unshift(newEstate);
+      return res.status(201).json({ success: true, estate: newEstate });
+    } catch (e: any) {
+      console.error('List property error:', e);
+      return res.status(500).json({ error: 'Failed to list property.' });
+    }
+  });
+
+  // Toggle favorite property
+  app.post('/api/properties/:id/favorite', (req: Request, res: Response) => {
+    const { id } = req.params;
+    let isFav = false;
+    if (savedFavorites.has(id)) {
+      savedFavorites.delete(id);
+      isFav = false;
+    } else {
+      savedFavorites.add(id);
+      isFav = true;
+    }
+    res.json({ success: true, id, isFavorite: isFav, totalFavorites: savedFavorites.size });
+  });
+
+  // Portfolio statistics
+  app.get('/api/portfolio', (_req: Request, res: Response) => {
+    res.json({
+      portfolioValueRwf: '142M RWF',
+      portfolioValueUsd: '$1,890,000',
+      totalHoldings: 3,
+      grossYield: '10.8%',
+      monthlyIncome: '12.4M RWF',
+      occupancyRate: '98%',
+    });
+  });
+
+  // -------------------------------------------------------------
   // Vite Integration
   // -------------------------------------------------------------
   if (process.env.NODE_ENV !== 'production') {

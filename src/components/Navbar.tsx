@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => onOpenAuth('signup')}
-                className="font-['Manrope'] text-xs font-bold tracking-wider uppercase px-3 py-2 rounded text-[#432200] hover:text-[#00236f] transition-colors cursor-pointer"
+                className="font-['Manrope'] text-xs font-bold tracking-wider uppercase px-3 py-2 rounded bg-[#00236f]/5 text-[#00236f] hover:bg-[#00236f] hover:text-white transition-all cursor-pointer"
               >
                 Sign Up
               </button>
@@ -219,7 +219,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onOpenAuth('signin');
                 }}
-                className="py-2.5 bg-[#f3f4f5] rounded text-center text-xs font-bold text-[#00236f] uppercase tracking-wider cursor-pointer"
+                className="py-2.5 bg-[#f3f4f5] rounded text-center text-xs font-bold text-[#00236f] uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
               >
                 Sign In
               </button>
@@ -228,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setMobileMenuOpen(false);
                   onOpenAuth('signup');
                 }}
-                className="py-2.5 bg-[#432200] text-white rounded text-center text-xs font-bold uppercase tracking-wider cursor-pointer"
+                className="py-2.5 bg-[#432200] text-white rounded text-center text-xs font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
               >
                 Sign Up
               </button>
