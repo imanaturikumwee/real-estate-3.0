@@ -7,8 +7,6 @@ interface NavbarProps {
   onNavigate: (screen: ActiveScreen) => void;
   onOpenConsultation: () => void;
   onOpenAuth: (mode?: 'signin' | 'signup') => void;
-  isHeaderNavHidden?: boolean;
-  onToggleHeaderNav?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,8 +14,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onOpenConsultation,
   onOpenAuth,
-  isHeaderNavHidden,
-  onToggleHeaderNav,
 }) => {
   const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <nav className="fixed top-0 w-full z-40 bg-[#f8f9fa]/85 backdrop-blur-md border-b border-[#c5c5d3]/15 transition-all">
+    <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-[#f8f9fa]/95 backdrop-blur-md border-b border-[#c5c5d3]/20 shadow-xs transition-all">
       <div className="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 h-20">
         {/* Brand Logo */}
         <button
@@ -176,18 +172,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Sign Up
               </button>
             </div>
-          )}
-
-          {/* Search Page Header Nav Toggle Button */}
-          {activeScreen === 'properties' && onToggleHeaderNav && (
-            <button
-              onClick={onToggleHeaderNav}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#f3f4f5] hover:bg-[#00236f] hover:text-white text-[#444651] text-xs font-bold transition-all cursor-pointer border border-[#c5c5d3]/30"
-              title="Hide navigation bar for full-height search & map"
-            >
-              <span className="material-symbols-outlined text-sm">visibility_off</span>
-              <span className="uppercase tracking-wider text-[10px]">Hide Header</span>
-            </button>
           )}
 
           {/* Enquire Now CTA Button */}

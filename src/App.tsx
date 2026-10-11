@@ -28,9 +28,6 @@ function AppContent() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
 
-  // Search Screen Header Nav Bar Visibility Toggle
-  const [isHeaderNavHidden, setIsHeaderNavHidden] = useState(false);
-
   const [searchFilters, setSearchFilters] = useState<{
     location: string;
     priceRange: string;
@@ -84,36 +81,21 @@ function AppContent() {
   };
 
   const isAuthScreen = activeScreen === 'signin' || activeScreen === 'signup';
-  const shouldHideNavbar = !isAuthScreen && (activeScreen === 'properties' && isHeaderNavHidden);
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-['Inter'] text-[#191c1d] flex flex-col selection:bg-[#00236f] selection:text-white">
-      {/* Top Navigation Bar */}
-      {!isAuthScreen && !shouldHideNavbar && (
+      {/* Top Fixed Navigation Bar */}
+      {!isAuthScreen && (
         <Navbar
           activeScreen={activeScreen}
           onNavigate={handleNavigate}
           onOpenConsultation={handleOpenGeneralConsultation}
           onOpenAuth={handleOpenAuth}
-          isHeaderNavHidden={isHeaderNavHidden}
-          onToggleHeaderNav={() => setIsHeaderNavHidden((prev) => !prev)}
         />
       )}
 
-      {/* Floating Restore Nav Button (Visible when header nav is hidden on the search page) */}
-      {shouldHideNavbar && (
-        <button
-          onClick={() => setIsHeaderNavHidden(false)}
-          className="fixed top-3 right-6 z-50 bg-white/95 backdrop-blur-md text-[#00236f] hover:bg-[#00236f] hover:text-white px-4 py-2 rounded-full text-xs font-bold shadow-xl border border-[#00236f]/20 flex items-center gap-1.5 cursor-pointer transition-all hover:scale-105 active:scale-95 animate-in fade-in duration-200"
-          title="Restore top navigation bar"
-        >
-          <span className="material-symbols-outlined text-base">expand_more</span>
-          <span>Show Navigation Bar</span>
-        </button>
-      )}
-
-      {/* Main Content Area */}
-      <main className={`flex-grow ${!isAuthScreen && !shouldHideNavbar ? 'pt-20' : 'pt-0'}`}>
+      {/* Main Content Area (pt-20 for fixed 80px navbar) */}
+      <main className={`flex-grow ${!isAuthScreen ? 'pt-20' : 'pt-0'}`}>
         {activeScreen === 'home' && (
           <>
             {/* Hero Section */}
@@ -152,8 +134,6 @@ function AppContent() {
             initialFilters={searchFilters}
             onNavigate={handleNavigate}
             onOpenConsultation={handleOpenGeneralConsultation}
-            isHeaderNavHidden={isHeaderNavHidden}
-            onToggleHeaderNav={() => setIsHeaderNavHidden((prev) => !prev)}
           />
         )}
 

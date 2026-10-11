@@ -9,8 +9,6 @@ interface PropertiesScreenProps {
   initialFilters?: { location?: string; priceRange?: string; propertyType?: string };
   onNavigate?: (screen: any) => void;
   onOpenConsultation?: () => void;
-  isHeaderNavHidden?: boolean;
-  onToggleHeaderNav?: () => void;
 }
 
 export const PropertiesScreen: React.FC<PropertiesScreenProps> = ({
@@ -19,8 +17,6 @@ export const PropertiesScreen: React.FC<PropertiesScreenProps> = ({
   initialFilters,
   onNavigate,
   onOpenConsultation,
-  isHeaderNavHidden,
-  onToggleHeaderNav,
 }) => {
   return (
     <PropertySearchExplorer
@@ -31,8 +27,6 @@ export const PropertiesScreen: React.FC<PropertiesScreenProps> = ({
       onBookTour={onBookTour}
       onNavigate={onNavigate}
       onOpenConsultation={onOpenConsultation}
-      isHeaderNavHidden={isHeaderNavHidden}
-      onToggleHeaderNav={onToggleHeaderNav}
     />
   );
 };

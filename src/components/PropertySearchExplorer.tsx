@@ -12,8 +12,6 @@ interface PropertySearchExplorerProps {
   onBookTour?: (property: Property) => void;
   onNavigate?: (screen: any) => void;
   onOpenConsultation?: () => void;
-  isHeaderNavHidden?: boolean;
-  onToggleHeaderNav?: () => void;
 }
 
 export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
@@ -24,8 +22,6 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
   onBookTour,
   onNavigate,
   onOpenConsultation,
-  isHeaderNavHidden = false,
-  onToggleHeaderNav,
 }) => {
   const { user } = useAuth();
 
@@ -241,11 +237,7 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
       <aside
         className={`bg-white border-r border-[#c5c5d3]/20 flex-shrink-0 transition-all duration-300 z-30 flex flex-col justify-between ${
           sidebarCollapsed ? 'w-16 md:w-20' : 'w-full md:w-64 lg:w-72'
-        } hidden md:flex ${
-          isHeaderNavHidden
-            ? 'min-h-screen sticky top-0'
-            : 'min-h-[calc(100vh-5rem)] sticky top-20'
-        }`}
+        } hidden md:flex min-h-[calc(100vh-5rem)] sticky top-20`}
       >
         <div className="p-4 lg:p-5 flex flex-col h-full">
           {/* Header Brand Indicator */}
@@ -344,21 +336,6 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
               <span className="material-symbols-outlined text-lg">calendar_month</span>
               {!sidebarCollapsed && <span>Book Consultation</span>}
             </button>
-
-            {onToggleHeaderNav && (
-              <button
-                onClick={onToggleHeaderNav}
-                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#444651] hover:bg-[#f3f4f5] hover:text-[#00236f] transition-all cursor-pointer"
-                title={isHeaderNavHidden ? 'Restore top navigation bar' : 'Hide top navigation bar for full screen'}
-              >
-                <span className="material-symbols-outlined text-lg">
-                  {isHeaderNavHidden ? 'visibility' : 'visibility_off'}
-                </span>
-                {!sidebarCollapsed && (
-                  <span>{isHeaderNavHidden ? 'Show Header Nav' : 'Hide Header Nav'}</span>
-                )}
-              </button>
-            )}
           </nav>
 
           {/* Bottom Patron Role & Stats Widget */}
@@ -398,12 +375,8 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
           MAIN SEARCH & INTERACTIVE VIEWPORT
           ------------------------------------------------------------- */}
       <main className="flex-1 flex flex-col min-w-0">
-        {/* Sticky Top Filter & Control Ribbon */}
-        <section
-          className={`bg-white border-b border-[#c5c5d3]/20 z-20 shadow-xs px-4 sm:px-6 lg:px-8 py-3.5 space-y-3 ${
-            isHeaderNavHidden ? 'sticky top-0' : 'sticky top-20'
-          }`}
-        >
+        {/* Top Filter & Control Ribbon */}
+        <section className="bg-white border-b border-[#c5c5d3]/20 z-10 shadow-xs px-4 sm:px-6 lg:px-8 py-3.5 space-y-3">
           {/* Row 1: Search Input, Currency Switcher, and View Switchers */}
           <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
             {/* Search Input Box */}
@@ -493,30 +466,6 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
                   <span className="hidden lg:inline">Map</span>
                 </button>
               </div>
-
-              {/* Header Nav Toggle Button */}
-              {onToggleHeaderNav && (
-                <button
-                  onClick={onToggleHeaderNav}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                    isHeaderNavHidden
-                      ? 'bg-[#00236f] text-white border-[#00236f] shadow-md hover:bg-[#001b55]'
-                      : 'bg-white text-[#444651] border-[#c5c5d3]/30 hover:border-[#00236f] hover:text-[#00236f] shadow-xs'
-                  }`}
-                  title={
-                    isHeaderNavHidden
-                      ? 'Restore top navigation bar'
-                      : 'Hide top navigation bar for full-height search & map'
-                  }
-                >
-                  <span className="material-symbols-outlined text-base">
-                    {isHeaderNavHidden ? 'visibility' : 'visibility_off'}
-                  </span>
-                  <span className="hidden sm:inline">
-                    {isHeaderNavHidden ? 'Show Header Nav' : 'Hide Header Nav'}
-                  </span>
-                </button>
-              )}
 
               {/* Mobile View Toggle Button (List vs Map) */}
               <div className="flex md:hidden items-center bg-[#f3f4f5] p-1 rounded-xl border border-[#c5c5d3]/20 text-xs font-bold">
@@ -849,18 +798,14 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
           </div>
 
           {/* -------------------------------------------------------------
-              REAL GOOGLE MAP KIGALI VIEWPORT
+              REAL GOOGLE MAP KIGALI VIEWPORT (Big in Length)
               ------------------------------------------------------------- */}
           <div
             className={`transition-all duration-300 relative bg-[#eef1f5] overflow-hidden flex flex-col rounded-2xl border border-[#c5c5d3]/20 shadow-xs ${
               viewMode === 'map'
-                ? isHeaderNavHidden
-                  ? 'w-full h-[calc(100vh-8.5rem)]'
-                  : 'w-full h-[750px] md:h-[calc(100vh-13rem)]'
+                ? 'w-full min-h-[850px] md:min-h-[920px] lg:min-h-[980px] xl:min-h-[1050px] h-[calc(100vh-6.5rem)]'
                 : viewMode === 'split'
-                ? isHeaderNavHidden
-                  ? 'w-full md:w-1/2 lg:w-5/12 h-[560px] md:h-[calc(100vh-8.5rem)] md:sticky md:top-36'
-                  : 'w-full md:w-1/2 lg:w-5/12 h-[500px] md:h-[calc(100vh-13rem)] md:sticky md:top-48'
+                ? 'w-full md:w-1/2 lg:w-5/12 min-h-[780px] md:min-h-[880px] lg:min-h-[940px] xl:min-h-[1000px] h-[calc(100vh-6.5rem)] md:sticky md:top-24'
                 : 'hidden'
             } ${mobileTab === 'list' ? 'hidden md:flex' : 'flex'}`}
           >
