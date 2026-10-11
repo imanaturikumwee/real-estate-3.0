@@ -29,6 +29,10 @@ export interface Property {
   parkingSpaces: number;
   lotSize: string;
   architect?: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
   mapPin?: {
     top: string;
     left: string;

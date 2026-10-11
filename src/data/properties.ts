@@ -53,6 +53,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 4,
     lotSize: '1,200 sqm',
     architect: 'Emma Umutoni Studio',
+    coordinates: { lat: -1.9368, lng: 30.0988 },
     mapPin: { top: '38%', left: '42%', label: '45M' },
     transitInfo: {
       destination: 'Nyarutarama Business Hub',
@@ -97,6 +98,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 2,
     lotSize: '650 sqm',
     architect: 'Atelier Dany Mugisha',
+    coordinates: { lat: -1.9312, lng: 30.1245 },
     mapPin: { top: '48%', left: '68%', label: '32M' },
     transitInfo: {
       destination: 'Kigali Convention Centre',
@@ -141,6 +143,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 4,
     lotSize: '1,450 sqm',
     architect: 'Emma Umutoni Studio + Kigali Urban Design',
+    coordinates: { lat: -1.9345, lng: 30.1032 },
     mapPin: { top: '34%', left: '46%', label: '52M' },
     transitInfo: {
       destination: 'Kigali Golf Club',
@@ -183,6 +186,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 2,
     lotSize: '620 sqm',
     architect: 'Ultimate Developers Ltd & Atelier Dany',
+    coordinates: { lat: -1.9215, lng: 30.0918 },
     mapPin: { top: '25%', left: '60%', label: '28M' },
     transitInfo: {
       destination: 'Vision City Hub',
@@ -225,6 +229,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 6,
     lotSize: '2,800 sqm',
     architect: 'Kigali Hilltop Master Architects',
+    coordinates: { lat: -1.9875, lng: 30.0822 },
     mapPin: { top: '65%', left: '35%', label: '68M' },
     transitInfo: {
       destination: 'Kigali Financial District',
@@ -269,6 +274,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 3,
     lotSize: '1,200 sqm',
     architect: 'Studio Emma Umutoni',
+    coordinates: { lat: -1.9562, lng: 30.0635 },
     mapPin: { top: '42%', left: '32%', label: '58M' },
     transitInfo: {
       destination: 'Downtown Kigali',
@@ -313,6 +319,7 @@ export const PROPERTIES: Property[] = [
     parkingSpaces: 2,
     lotSize: '310 sqm floorplate',
     architect: 'Atelier Dany Mugisha Partners',
+    coordinates: { lat: -1.9535, lng: 30.0838 },
     mapPin: { top: '55%', left: '55%', label: '39M' },
     transitInfo: {
       destination: 'Kigali Convention Centre',
