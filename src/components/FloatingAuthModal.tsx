@@ -7,12 +7,14 @@ interface FloatingAuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialMode?: 'signin' | 'signup';
+  onSuccess?: (role?: UserRole) => void;
 }
 
 export const FloatingAuthModal: React.FC<FloatingAuthModalProps> = ({
   isOpen,
   onClose,
   initialMode = 'signin',
+  onSuccess,
 }) => {
   const { login, register, isLoading, error, forgotPassword, clearError } = useAuth();
   const [mode, setMode] = useState<'signin' | 'signup'>(initialMode);
@@ -70,6 +72,7 @@ export const FloatingAuthModal: React.FC<FloatingAuthModalProps> = ({
       const success = await login(email, password);
       if (success) {
         onClose();
+        if (onSuccess) onSuccess(role);
       }
     } else {
       const success = await register({
@@ -84,6 +87,7 @@ export const FloatingAuthModal: React.FC<FloatingAuthModalProps> = ({
         setTimeout(() => {
           setShowSuccessToast(false);
           onClose();
+          if (onSuccess) onSuccess(role);
         }, 1200);
       }
     }

@@ -61,6 +61,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             Properties
           </button>
           <button
+            onClick={() => handleNavClick('tenant-dashboard')}
+            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer flex items-center gap-1 ${
+              activeScreen === 'tenant-dashboard'
+                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
+                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
+            }`}
+          >
+            <span className="material-symbols-outlined text-sm">dashboard</span>
+            <span>Portal</span>
+          </button>
+          <button
             onClick={() => handleNavClick('invest')}
             className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
               activeScreen === 'invest'
@@ -129,6 +140,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </span>
                   </div>
 
+                  <button
+                    onClick={() => handleNavClick('tenant-dashboard')}
+                    className="w-full text-left px-4 py-2 hover:bg-[#f8f9fa] flex items-center gap-2 text-[#00236f] font-bold"
+                  >
+                    <span className="material-symbols-outlined text-sm">dashboard</span>
+                    Tenant &amp; Buyer Portal
+                  </button>
                   <button
                     onClick={() => handleNavClick('properties')}
                     className="w-full text-left px-4 py-2 hover:bg-[#f8f9fa] flex items-center gap-2 text-[#444651]"
@@ -250,6 +268,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             Properties
+          </button>
+          <button
+            onClick={() => handleNavClick('tenant-dashboard')}
+            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
+              activeScreen === 'tenant-dashboard' ? 'text-[#00236f] font-bold' : 'text-[#00236f] font-semibold'
+            }`}
+          >
+            Tenant &amp; Buyer Portal
           </button>
           <button
             onClick={() => handleNavClick('invest')}

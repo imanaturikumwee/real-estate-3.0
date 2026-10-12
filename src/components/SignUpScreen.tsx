@@ -6,11 +6,13 @@ import { SocialAuthModal } from './SocialAuthModal';
 interface SignUpScreenProps {
   onNavigateToSignIn: () => void;
   onNavigateToHome: () => void;
+  onNavigateToDashboard?: () => void;
 }
 
 export const SignUpScreen: React.FC<SignUpScreenProps> = ({
   onNavigateToSignIn,
   onNavigateToHome,
+  onNavigateToDashboard,
 }) => {
   const { register, isLoading, error, clearError } = useAuth();
   const [role, setRole] = useState<UserRole>('buyer');
@@ -36,7 +38,11 @@ export const SignUpScreen: React.FC<SignUpScreenProps> = ({
     if (success) {
       setShowSuccessNotification(true);
       setTimeout(() => {
-        onNavigateToHome();
+        if (onNavigateToDashboard) {
+          onNavigateToDashboard();
+        } else {
+          onNavigateToHome();
+        }
       }, 1400);
     }
   };

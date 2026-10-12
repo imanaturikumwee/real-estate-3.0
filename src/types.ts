@@ -82,5 +82,6 @@ export type ActiveScreen =
   | 'about'
   | 'contact'
   | 'signin'
-  | 'signup';
+  | 'signup'
+  | 'tenant-dashboard';
 

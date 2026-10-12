@@ -14,6 +14,7 @@ import { AboutScreen } from './components/AboutScreen';
 import { ContactScreen } from './components/ContactScreen';
 import { SignInScreen } from './components/SignInScreen';
 import { SignUpScreen } from './components/SignUpScreen';
+import { TenantDashboard } from './components/TenantDashboard';
 import { FloatingAuthModal } from './components/FloatingAuthModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { ConsultationModal } from './components/ConsultationModal';
@@ -81,11 +82,12 @@ function AppContent() {
   };
 
   const isAuthScreen = activeScreen === 'signin' || activeScreen === 'signup';
+  const isPortalScreen = activeScreen === 'tenant-dashboard';
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-['Inter'] text-[#191c1d] flex flex-col selection:bg-[#00236f] selection:text-white">
       {/* Top Fixed Navigation Bar */}
-      {!isAuthScreen && (
+      {!isAuthScreen && !isPortalScreen && (
         <Navbar
           activeScreen={activeScreen}
           onNavigate={handleNavigate}
@@ -95,7 +97,7 @@ function AppContent() {
       )}
 
       {/* Main Content Area (pt-20 for fixed 80px navbar) */}
-      <main className={`flex-grow ${!isAuthScreen ? 'pt-20' : 'pt-0'}`}>
+      <main className={`flex-grow ${!isAuthScreen && !isPortalScreen ? 'pt-20' : 'pt-0'}`}>
         {activeScreen === 'home' && (
           <>
             {/* Hero Section */}
@@ -137,6 +139,17 @@ function AppContent() {
           />
         )}
 
+        {/* Tenant & Buyer Portal Dashboard (Attached Page) */}
+        {activeScreen === 'tenant-dashboard' && (
+          <TenantDashboard
+            properties={PROPERTIES}
+            onSelectProperty={handleSelectProperty}
+            onBookTour={handleBookTourFromProperty}
+            onOpenConsultation={handleOpenGeneralConsultation}
+            onNavigate={handleNavigate}
+          />
+        )}
+
         {activeScreen === 'invest' && (
           <InvestScreen
             onOpenConsultation={handleOpenGeneralConsultation}
@@ -158,6 +171,7 @@ function AppContent() {
           <SignInScreen
             onNavigateToSignUp={() => handleNavigate('signup')}
             onNavigateToHome={() => handleNavigate('home')}
+            onNavigateToDashboard={() => handleNavigate('tenant-dashboard')}
           />
         )}
 
@@ -165,12 +179,13 @@ function AppContent() {
           <SignUpScreen
             onNavigateToSignIn={() => handleNavigate('signin')}
             onNavigateToHome={() => handleNavigate('home')}
+            onNavigateToDashboard={() => handleNavigate('tenant-dashboard')}
           />
         )}
       </main>
 
       {/* Footer */}
-      {!isAuthScreen && (
+      {!isAuthScreen && !isPortalScreen && (
         <Footer
           onNavigate={handleNavigate}
           onOpenConsultation={handleOpenGeneralConsultation}
@@ -183,6 +198,11 @@ function AppContent() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         initialMode={authModalMode}
+        onSuccess={() => {
+          // If a tenant or buyer logs in or signs in, route them straight to their portal dashboard!
+          setActiveScreen('tenant-dashboard');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
       {/* Property Details Modal */}
