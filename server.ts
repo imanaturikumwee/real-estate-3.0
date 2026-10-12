@@ -971,6 +971,326 @@ async function startServer() {
       mapPinLabel: 'RWF 4.5M',
       description: 'Experience unparalleled panoramic views of the city. This state-of-the-art smart home features zero-carbon energy systems, a triple-tier security perimeter, and an infinity pool merging with the horizon.',
     },
+    {
+      id: 'house-kacyiru-embassy-villa',
+      title: 'Kacyiru Diplomatic Villa',
+      neighborhood: 'Kacyiru',
+      location: 'Kacyiru, Kigali',
+      monthlyRentRwf: 2800000,
+      priceDisplay: 'RWF 2.8M',
+      beds: 4,
+      baths: 3,
+      areaM2: 410,
+      propertyType: 'Diplomatic Residence',
+      category: 'RESIDENTIAL',
+      aiScore: 9.5,
+      amenities: ['Private Pool', 'High-Speed WiFi', 'Solar Energy'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCUOhQL5jMcnbiwfsVMXu8wIJrtacsGdJmCc1cVFy-nc_HWacnpWp2iUct98HbBPMxx8L1q4FMktUDRKj-xLjvUUWWthqFE01CvpXMaLykGys6PXkk3HF7YtjM4Xp3GLOqJ0DWMvIMEfpsSOu0KunGp2lFZNnBY2hkLxxD67Q-S9__t5UCr3vnDLpVSt-8X9oq4UJvHy92eSyWm_NaDWL0oJsabAD117CG7-UQEZY4ouFRHLOGZh0WUaKHDyiVviz-lH40WEzrBIl4H',
+      coordinates: { lat: -1.943, lng: 30.076 },
+      mapPinLabel: 'RWF 2.8M',
+      description: 'Nestled in the quiet diplomatic enclave of Kacyiru with manicured private gardens, guardhouse perimeter, and floor-to-ceiling glass interiors.',
+    },
+    {
+      id: 'house-gacuriro-sky-estate',
+      title: 'Gacuriro Sky Sanctuary',
+      neighborhood: 'Gacuriro',
+      location: 'Gacuriro, Kigali',
+      monthlyRentRwf: 3600000,
+      priceDisplay: 'RWF 3.6M',
+      beds: 4,
+      baths: 4,
+      areaM2: 520,
+      propertyType: 'Luxury Contemporary Villa',
+      category: 'PREMIUM',
+      aiScore: 9.7,
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'High-Speed WiFi'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAiD5Sf302m49Cgl-HKJ79zbgX_vYXr14YiY-2H3w1VccGCbknMc7gsPFVsvebvnaikmFIG90qJYlxf5cweT_l07hr1Ks94IrIQDYBSVfly_gNdV5KkXfm8s6U0r9VUx5kNCOqfIkPuwwCCctJqszViRLSBD-TqllsHp4q-8YjDHRVnAJl-fbU9obyTN9vslCKCvAy5sDSQOoAYZ4tcgi7C5EQoHF6dHHUSCCfGb2ImYaiwBT0Jjq1dEHcc9D628oT78YCPzen7-Yaq',
+      coordinates: { lat: -1.925, lng: 30.108 },
+      mapPinLabel: 'RWF 3.6M',
+      description: 'High-elevation residence featuring double-height entertainment salons, automated thermal blinds, solar microgrid, and cascading terraces overlooking Gasabo valleys.',
+    },
+    {
+      id: 'house-kiyovu-heritage-manor',
+      title: 'Kiyovu Heritage Manor',
+      neighborhood: 'Kiyovu',
+      location: 'Kiyovu, Kigali',
+      monthlyRentRwf: 4200000,
+      priceDisplay: 'RWF 4.2M',
+      beds: 5,
+      baths: 4,
+      areaM2: 600,
+      propertyType: 'Colonial Heritage Estate',
+      category: 'INVESTMENT GRADE',
+      aiScore: 9.6,
+      badge: 'Heritage Luxury',
+      amenities: ['Mountain View', 'Solar Energy', 'High-Speed WiFi'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA3c7xi4yWp-mUwDymmU9GsMcopSAfVtpXn2GdlW9qSNfVOwCN_J0CSzti3O2MVU8_1YQIzGG4_Ppuw8BZ9ncyUv9c_4ui885INoTF_1unkGcidonAAarpRbx9akUp2fSt-G7UBJNnjg95XVkRyoB3U7ObNOZk08c1lxAmm6k1DbtlpZUzFjrqX9enYM-X_XpDYTroRUWj0hkCubWyaLt3dwECeyn6Qkc11Ub8Z6yL1WllnO2yhZ7wwaZXiNLqA6bLObjGstvrGEXk2',
+      coordinates: { lat: -1.957, lng: 30.065 },
+      mapPinLabel: 'RWF 4.2M',
+      description: 'Historic prime Kiyovu manor with modern interior architectural overhaul, century-old jacaranda trees, separate service staff quarters, and diplomatic security clearance.',
+    },
+  ];
+
+  const housesForSaleDataset = [
+    {
+      id: 'sale-sovereign-ridge-villa',
+      title: 'The Sovereign Ridge Villa',
+      neighborhood: 'Nyarutarama',
+      location: 'Nyarutarama Ridge, Kigali',
+      priceUsd: 950000,
+      priceRwf: 1235000000,
+      priceDisplayUsd: '$950,000',
+      priceDisplayRwf: 'RWF 1.235B',
+      beds: 5,
+      baths: 5,
+      areaM2: 580,
+      plotSizeM2: 1400,
+      propertyType: 'Diplomatic Villa',
+      category: 'FREEHOLD ESTATE',
+      aiScore: 9.9,
+      badge: 'Prime Acquisition',
+      isFeatured: true,
+      titleDeedType: 'Clean UPI Freehold Deed',
+      projectedAppreciation: '+13.8% YoY',
+      projectedYield: '9.6% Net Yield',
+      yearBuilt: 2024,
+      zoning: 'R1A - Low Density Prime Residential',
+      parkingSpaces: 4,
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'High-Speed WiFi', 'Staff Quarters', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBuGAIKUQvpl-Hl6r4oC2hhqwm3zmZXDhZCJrPC92MfOKGSmCkDOjOrbMBrXpF6_LEkgc1eYBV-B65sa0VnYpikb7k1MkHkdS7wdOZODq4FRm0e4b3S4OEUy5tg6rT_Sh7oabxkYDL5-kfG6W1A22D_-sg6OveoQ11i0bbonwkElpnd0tvkIGHxeowV5UAGaLg5ohUnDkS89BhmDUdYJLN0rK2BapuHYfM2WeBgYaNHp8X9oB4V9R62gd6Vmp52PZ3U9lbtBIac9_hR',
+      coordinates: { lat: -1.9368, lng: 30.0988 },
+      mapPinLabel: '$950k',
+      description:
+        'An architectural masterpiece with panoramic golf course vistas. Built with thermal volcanic stone cladding, cantilevered teak terraces, heated infinity lap pool, automated biometric entry, and full solar storage microgrid.',
+    },
+    {
+      id: 'sale-kiyovu-presidential-manor',
+      title: 'Kiyovu Presidential Manor',
+      neighborhood: 'Kiyovu',
+      location: 'Diplomatic Quarter, Kiyovu, Kigali',
+      priceUsd: 1450000,
+      priceRwf: 1885000000,
+      priceDisplayUsd: '$1,450,000',
+      priceDisplayRwf: 'RWF 1.885B',
+      beds: 6,
+      baths: 6,
+      areaM2: 750,
+      plotSizeM2: 2200,
+      propertyType: 'Colonial Ambassadorial Manor',
+      category: 'HERITAGE LUXURY',
+      aiScore: 9.9,
+      badge: 'Diplomatic Grade',
+      isFeatured: true,
+      titleDeedType: 'Clean UPI Freehold Deed',
+      projectedAppreciation: '+12.4% YoY',
+      projectedYield: '8.8% Net Yield',
+      yearBuilt: 2023,
+      zoning: 'R1A - Ambassadorial Prime',
+      parkingSpaces: 6,
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'Staff Quarters', 'Gated Security', 'Tennis Court'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCGGBSEI_gmOrmBmbORG_C2nEM-GUyxCi-132RFPUTpZtPku_la-yK0nuOF1q4xHNRZ7opKZ6qFlATogkeDAXVB1DivZ9rO5F97MTbTfszjYqLyOrCeWuqSDRz1xVYfxWRpMu-q9vADJNCzIr4k4laQlG4sWwsIxODyyu4QPL1PGvu9FtqTMo_0ynyQU9RY816bT2BOPcp_WeBSJ_gVHlju9WifNEQ7PNG7V2BM4UboJfWGs9Q-wSfwzbIpLfOYJT1YfV2cOX8toGPE',
+      coordinates: { lat: -1.956, lng: 30.064 },
+      mapPinLabel: '$1.45M',
+      description:
+        'Prestigious embassy-ready estate situated in the heart of Old Kiyovu. Features a private regulation tennis court, mature century-old jacaranda groves, detached guest lodge, guard quarters, and expansive formal reception salon.',
+    },
+    {
+      id: 'sale-rebero-obsidian-horizon',
+      title: 'Rebero Obsidian Horizon',
+      neighborhood: 'Rebero',
+      location: 'Rebero Summit, Kigali',
+      priceUsd: 680000,
+      priceRwf: 884000000,
+      priceDisplayUsd: '$680,000',
+      priceDisplayRwf: 'RWF 884M',
+      beds: 4,
+      baths: 4,
+      areaM2: 460,
+      plotSizeM2: 950,
+      propertyType: 'Contemporary Modern Villa',
+      category: 'HILLTOP SANCTUARY',
+      aiScore: 9.7,
+      badge: "Architect's Choice",
+      isFeatured: true,
+      titleDeedType: 'Clean UPI Freehold Deed',
+      projectedAppreciation: '+15.2% YoY',
+      projectedYield: '10.5% Net Yield',
+      yearBuilt: 2024,
+      zoning: 'R1 - Low Density Residential',
+      parkingSpaces: 3,
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'High-Speed WiFi', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDcedMGqJ2ghqMY2ljqkmRN5zTKzA-RDNdSxHfN7AC1S04DYDT-oIxOQ8XwGL11yHjLJ2cY7RcgeK7x0n3_djmJSN8IuZ7uOI-UpkFtiJ956BYnPER2yUEH4aRICejlUcbg4aAk764HzuyVDoXcYWXwY4oulkzTLiL5w6U5vKkjz29Tlahx9wPM_ro42zuSxNAxSp95bO33wT0t1b4Oay0BbYINH9hTixDEiCRxYeuGdDra4yWlW-Gd22vZUMV2zxUmxVTCc23VB5AA',
+      coordinates: { lat: -1.982, lng: 30.082 },
+      mapPinLabel: '$680k',
+      description:
+        'Suspended over the southwestern ridge of Rebero Hill, this home offers 270-degree sunset vistas of Kigali. Equipped with smart floor warming, frameless sliding glass panels, zero-carbon battery storage, and an infinity pool that merges with the clouds.',
+    },
+    {
+      id: 'sale-kibagabaga-architectural-sanctuary',
+      title: 'Kibagabaga Architectural Haven',
+      neighborhood: 'Kibagabaga',
+      location: 'Kibagabaga Hill, Kigali',
+      priceUsd: 480000,
+      priceRwf: 624000000,
+      priceDisplayUsd: '$480,000',
+      priceDisplayRwf: 'RWF 624M',
+      beds: 4,
+      baths: 3,
+      areaM2: 380,
+      plotSizeM2: 720,
+      propertyType: 'Modern Townhouse Villa',
+      category: 'PRIME VALUE',
+      aiScore: 9.5,
+      badge: 'Verified Title',
+      isFeatured: false,
+      titleDeedType: 'Instant Notarized Transfer',
+      projectedAppreciation: '+11.8% YoY',
+      projectedYield: '10.1% Net Yield',
+      yearBuilt: 2024,
+      zoning: 'R2 - Planned Residential Community',
+      parkingSpaces: 3,
+      amenities: ['Private Pool', 'Solar Energy', 'High-Speed WiFi', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA3c7xi4yWp-mUwDymmU9GsMcopSAfVtpXn2GdlW9qSNfVOwCN_J0CSzti3O2MVU8_1YQIzGG4_Ppuw8BZ9ncyUv9c_4ui885INoTF_1unkGcidonAAarpRbx9akUp2fSt-G7UBJNnjg95XVkRyoB3U7ObNOZk08c1lxAmm6k1DbtlpZUzFjrqX9enYM-X_XpDYTroRUWj0hkCubWyaLt3dwECeyn6Qkc11Ub8Z6yL1WllnO2yhZ7wwaZXiNLqA6bLObjGstvrGEXk2',
+      coordinates: { lat: -1.944, lng: 30.125 },
+      mapPinLabel: '$480k',
+      description:
+        'Seamless blend of Scandinavian minimalism and Rwandan artisanal volcanic stone masonry. Offers a private landscaped courtyard, custom eucalyptus cabinetry, solar water heating, and rooftop sunset terrace.',
+    },
+    {
+      id: 'sale-gacuriro-modernist-haven',
+      title: 'Gacuriro Modernist Haven',
+      neighborhood: 'Gacuriro',
+      location: 'Gacuriro, Gasabo, Kigali',
+      priceUsd: 590000,
+      priceRwf: 767000000,
+      priceDisplayUsd: '$590,000',
+      priceDisplayRwf: 'RWF 767M',
+      beds: 4,
+      baths: 4,
+      areaM2: 420,
+      plotSizeM2: 850,
+      propertyType: 'Contemporary Architectural Villa',
+      category: 'NEW CONSTRUCTION',
+      aiScore: 9.6,
+      badge: 'Turnkey Luxury',
+      isFeatured: false,
+      titleDeedType: 'Clean UPI Freehold Deed',
+      projectedAppreciation: '+13.0% YoY',
+      projectedYield: '9.8% Net Yield',
+      yearBuilt: 2024,
+      zoning: 'R1 - Prime Residential',
+      parkingSpaces: 4,
+      amenities: ['Mountain View', 'Solar Energy', 'High-Speed WiFi', 'Staff Quarters', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAiD5Sf302m49Cgl-HKJ79zbgX_vYXr14YiY-2H3w1VccGCbknMc7gsPFVsvebvnaikmFIG90qJYlxf5cweT_l07hr1Ks94IrIQDYBSVfly_gNdV5KkXfm8s6U0r9VUx5kNCOqfIkPuwwCCctJqszViRLSBD-TqllsHp4q-8YjDHRVnAJl-fbU9obyTN9vslCKCvAy5sDSQOoAYZ4tcgi7C5EQoHF6dHHUSCCfGb2ImYaiwBT0Jjq1dEHcc9D628oT78YCPzen7-Yaq',
+      coordinates: { lat: -1.925, lng: 30.108 },
+      mapPinLabel: '$590k',
+      description:
+        'Elevated hillside residence designed for seamless indoor-outdoor living. Features soaring double-height ceilings, automated louvered screens, Italian porcelain tiles, and a private guest pavilion.',
+    },
+    {
+      id: 'sale-kacyiru-diplomatic-enclave',
+      title: 'Kacyiru Diplomatic Enclave Villa',
+      neighborhood: 'Kacyiru',
+      location: 'Ministries & Embassy Row, Kacyiru, Kigali',
+      priceUsd: 820000,
+      priceRwf: 1066000000,
+      priceDisplayUsd: '$820,000',
+      priceDisplayRwf: 'RWF 1.066B',
+      beds: 5,
+      baths: 4,
+      areaM2: 510,
+      plotSizeM2: 1100,
+      propertyType: 'Diplomatic Residence',
+      category: 'SECURE ENCLAVE',
+      aiScore: 9.8,
+      badge: 'High Security',
+      isFeatured: false,
+      titleDeedType: 'Clean UPI Freehold Deed',
+      projectedAppreciation: '+12.1% YoY',
+      projectedYield: '9.2% Net Yield',
+      yearBuilt: 2023,
+      zoning: 'R1A - Diplomatic Residential',
+      parkingSpaces: 4,
+      amenities: ['Private Pool', 'Solar Energy', 'High-Speed WiFi', 'Staff Quarters', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCUOhQL5jMcnbiwfsVMXu8wIJrtacsGdJmCc1cVFy-nc_HWacnpWp2iUct98HbBPMxx8L1q4FMktUDRKj-xLjvUUWWthqFE01CvpXMaLykGys6PXkk3HF7YtjM4Xp3GLOqJ0DWMvIMEfpsSOu0KunGp2lFZNnBY2hkLxxD67Q-S9__t5UCr3vnDLpVSt-8X9oq4UJvHy92eSyWm_NaDWL0oJsabAD117CG7-UQEZY4ouFRHLOGZh0WUaKHDyiVviz-lH40WEzrBIl4H',
+      coordinates: { lat: -1.943, lng: 30.076 },
+      mapPinLabel: '$820k',
+      description:
+        'Located steps from major international embassies in Kacyiru. Impeccable high-perimeter security, guard post, multi-vehicle carport, manicured tropical lawn, and dedicated chef kitchen with domestic staff suites.',
+    },
+    {
+      id: 'sale-kimihurura-summit-villa',
+      title: 'Kimihurura Summit Villa',
+      neighborhood: 'Kimihurura',
+      location: 'Kimihurura Hill, Gasabo, Kigali',
+      priceUsd: 750000,
+      priceRwf: 975000000,
+      priceDisplayUsd: '$750,000',
+      priceDisplayRwf: 'RWF 975M',
+      beds: 4,
+      baths: 4,
+      areaM2: 490,
+      plotSizeM2: 1000,
+      propertyType: 'Hillside Modern Estate',
+      category: 'CULINARY & CULTURAL HUB',
+      aiScore: 9.7,
+      badge: 'City Views',
+      isFeatured: false,
+      titleDeedType: 'Clean UPI Freehold Deed',
+      projectedAppreciation: '+14.5% YoY',
+      projectedYield: '10.2% Net Yield',
+      yearBuilt: 2024,
+      zoning: 'R1 - Prime Residential',
+      parkingSpaces: 4,
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'High-Speed WiFi', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDcrj7BhiOC43OIwgUjrbO98kUY71phal0YovGq7UA3RLC0MNY7wgNngsUXucPDIWb0eYnp96lsPpDF0x5awXZrYB5ExUpsP_KFXcBvcRfyvLO9U-u4qdsiceJnj-wcM5l-7TCy2AaQro_bgClmiM23eKQk8zny3A256IUtKtUqseup6d3yxATov_gdW6hW5Zm4812k0sX3kvEl8lWIc4ZARP1UHal--OjYlS-gbDXSTvv65xoqC0686gzFQ4ZAgWFTs3PDee91OgN0',
+      coordinates: { lat: -1.961, lng: 30.088 },
+      mapPinLabel: '$750k',
+      description:
+        'Set upon the breezy ridgeline of Kimihurura with immediate proximity to Kigali Convention Centre and fine dining. Features a bespoke wine room, panoramic open salon, infinity plunge pool, and lush manicured gardens.',
+    },
+    {
+      id: 'sale-vision-city-modern-gem',
+      title: 'Vision City Modernist Gem',
+      neighborhood: 'Gacuriro',
+      location: 'Vision City, Gacuriro, Kigali',
+      priceUsd: 390000,
+      priceRwf: 507000000,
+      priceDisplayUsd: '$390,000',
+      priceDisplayRwf: 'RWF 507M',
+      beds: 4,
+      baths: 3,
+      areaM2: 340,
+      plotSizeM2: 600,
+      propertyType: 'Master-Planned Villa',
+      category: 'GATED COMMUNITY',
+      aiScore: 9.4,
+      badge: 'Turnkey Value',
+      isFeatured: false,
+      titleDeedType: 'Instant Notarized Transfer',
+      projectedAppreciation: '+10.8% YoY',
+      projectedYield: '9.5% Net Yield',
+      yearBuilt: 2023,
+      zoning: 'R2 - Planned Gated Community',
+      parkingSpaces: 2,
+      amenities: ['Solar Energy', 'High-Speed WiFi', 'Gated Security'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBIoH1CD8fCbIbvUl0dCcjQZgMlhVs3ydWlJEG32UisPFIr5_gW369a0uArsjdyIPEyzZjtT9SGlr7k1jGkXVDHl5mFy3lBW6LDiW1DgvkbzIONHklpO_YN-5_F5gwyJ0GuLHGhMk7JsP84P_vzFvOPC7g6Iz6z9pKeaEMYyfxvpdMSduibpWwR1hBjDUvJlx6egYWmU-YSNNXuJg01ek3JZBUNxaoP3H3shtEVN8Xq8mVd0kVwG7AO8Upm90fRb2z_M2j6UOKL6iye',
+      coordinates: { lat: -1.921, lng: 30.112 },
+      mapPinLabel: '$390k',
+      description:
+        'Immaculate turnkey luxury in Kigali’s premier master-planned gated district. 24/7 armed private community patrols, paved dual-carriageway access, underground utilities, and landscaped family playground parks.',
+    },
   ];
 
   const apartmentsDataset = [
@@ -1154,13 +1474,169 @@ async function startServer() {
   // 10. API: Houses for Rent
   app.get('/api/houses', (req: Request, res: Response) => {
     let list = [...housesDataset];
-    const { minRent, maxRent, bedrooms } = req.query;
+    const { minRent, maxRent, bedrooms, amenities, neighborhood, search, sortBy } = req.query;
 
     if (minRent) list = list.filter((h) => h.monthlyRentRwf >= Number(minRent));
     if (maxRent) list = list.filter((h) => h.monthlyRentRwf <= Number(maxRent));
     if (bedrooms) list = list.filter((h) => h.beds >= Number(bedrooms));
+    if (neighborhood && neighborhood !== 'All') {
+      list = list.filter((h) => h.neighborhood.toLowerCase() === String(neighborhood).toLowerCase());
+    }
+    if (amenities) {
+      const requestedAmenities = Array.isArray(amenities)
+        ? (amenities as string[])
+        : String(amenities).split(',').map((a) => a.trim());
+      list = list.filter((h) => requestedAmenities.every((reqA) => h.amenities.includes(reqA)));
+    }
+    if (search) {
+      const q = String(search).toLowerCase();
+      list = list.filter(
+        (h) =>
+          h.title.toLowerCase().includes(q) ||
+          h.location.toLowerCase().includes(q) ||
+          h.description.toLowerCase().includes(q)
+      );
+    }
+
+    if (sortBy === 'price-asc') {
+      list.sort((a, b) => a.monthlyRentRwf - b.monthlyRentRwf);
+    } else if (sortBy === 'price-desc') {
+      list.sort((a, b) => b.monthlyRentRwf - a.monthlyRentRwf);
+    } else if (sortBy === 'ai-score') {
+      list.sort((a, b) => b.aiScore - a.aiScore);
+    }
 
     res.json({ success: true, count: list.length, houses: list });
+  });
+
+  app.get('/api/houses/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const house = housesDataset.find((h) => h.id === id);
+    if (!house) {
+      return res.status(404).json({ success: false, error: 'Rental house not found' });
+    }
+    res.json({ success: true, house });
+  });
+
+  app.post('/api/houses/inquiry', (req: Request, res: Response) => {
+    try {
+      const { houseId, houseTitle, clientName, clientEmail, clientPhone, preferredDate, notes } = req.body;
+      const ref = 'RW-TOUR-' + Math.floor(1000 + Math.random() * 9000);
+      res.status(201).json({
+        success: true,
+        message: 'Viewing inquiry booked with diplomatic chauffeur dispatch.',
+        referenceCode: ref,
+        houseTitle,
+        preferredDate: preferredDate || 'Tomorrow 10:00 AM',
+      });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to record house viewing inquiry' });
+    }
+  });
+
+  // 10B. API: Houses for Sale
+  app.get('/api/houses-for-sale', (req: Request, res: Response) => {
+    let list = [...housesForSaleDataset];
+    const { minPrice, maxPrice, bedrooms, amenities, neighborhood, titleDeed, search, sortBy } = req.query;
+
+    if (minPrice) list = list.filter((h) => h.priceUsd >= Number(minPrice));
+    if (maxPrice) list = list.filter((h) => h.priceUsd <= Number(maxPrice));
+    if (bedrooms) list = list.filter((h) => h.beds >= Number(bedrooms));
+    if (neighborhood && neighborhood !== 'All' && neighborhood !== 'All Neighborhoods') {
+      list = list.filter((h) => h.neighborhood.toLowerCase() === String(neighborhood).toLowerCase());
+    }
+    if (titleDeed && titleDeed !== 'All' && titleDeed !== 'All Title Deeds') {
+      list = list.filter((h) => h.titleDeedType.toLowerCase().includes(String(titleDeed).toLowerCase()));
+    }
+    if (amenities) {
+      const requestedAmenities = Array.isArray(amenities)
+        ? (amenities as string[])
+        : String(amenities).split(',').map((a) => a.trim());
+      list = list.filter((h) => requestedAmenities.every((reqA) => h.amenities.includes(reqA)));
+    }
+    if (search) {
+      const q = String(search).toLowerCase();
+      list = list.filter(
+        (h) =>
+          h.title.toLowerCase().includes(q) ||
+          h.location.toLowerCase().includes(q) ||
+          h.description.toLowerCase().includes(q) ||
+          h.neighborhood.toLowerCase().includes(q) ||
+          h.propertyType.toLowerCase().includes(q)
+      );
+    }
+
+    if (sortBy === 'price-asc') {
+      list.sort((a, b) => a.priceUsd - b.priceUsd);
+    } else if (sortBy === 'price-desc') {
+      list.sort((a, b) => b.priceUsd - a.priceUsd);
+    } else if (sortBy === 'ai-score') {
+      list.sort((a, b) => b.aiScore - a.aiScore);
+    } else if (sortBy === 'size-desc') {
+      list.sort((a, b) => b.areaM2 - a.areaM2);
+    }
+
+    res.json({
+      success: true,
+      count: list.length,
+      housesForSale: list,
+      stats: {
+        totalListings: housesForSaleDataset.length,
+        avgPriceUsd: Math.round(housesForSaleDataset.reduce((acc, h) => acc + h.priceUsd, 0) / housesForSaleDataset.length),
+        cleanTitleRate: '100% Verified UPI Deeds',
+        avgAppreciation: '+13.2% YoY'
+      }
+    });
+  });
+
+  app.get('/api/houses-for-sale/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const house = housesForSaleDataset.find((h) => h.id === id);
+    if (!house) {
+      return res.status(404).json({ success: false, error: 'House for sale not found' });
+    }
+    res.json({ success: true, house });
+  });
+
+  app.post('/api/houses-for-sale/inquiry', (req: Request, res: Response) => {
+    try {
+      const { houseId, houseTitle, clientName, clientEmail, clientPhone, preferredDate, inquiryType, notes } = req.body;
+      const ref = 'RW-ACQ-' + Math.floor(1000 + Math.random() * 9000);
+      res.status(201).json({
+        success: true,
+        message: 'Acquisition viewing & Title Deed due diligence consultation registered.',
+        referenceCode: ref,
+        houseTitle: houseTitle || 'Private Rwandan Estate',
+        inquiryType: inquiryType || 'Private Acquisition Viewing',
+        preferredDate: preferredDate || 'This Week (VIP Escort)',
+        titleDeedGuarantee: 'Notarized RDB / Rwanda Land Management Authority Verified',
+      });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to record house acquisition inquiry' });
+    }
+  });
+
+  app.post('/api/houses-for-sale/mortgage-calc', (req: Request, res: Response) => {
+    try {
+      const { propertyPriceUsd = 500000, downPaymentPct = 20, loanTermYears = 20, interestRatePct = 8.5 } = req.body;
+      const downPayment = (propertyPriceUsd * downPaymentPct) / 100;
+      const principal = propertyPriceUsd - downPayment;
+      const monthlyRate = interestRatePct / 100 / 12;
+      const totalPayments = loanTermYears * 12;
+      const monthlyPayment = (principal * (monthlyRate * Math.pow(1 + monthlyRate, totalPayments))) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
+      res.json({
+        success: true,
+        propertyPriceUsd,
+        downPaymentUsd: Math.round(downPayment),
+        principalUsd: Math.round(principal),
+        monthlyPaymentUsd: Math.round(monthlyPayment),
+        loanTermYears,
+        interestRatePct,
+        annualPropertyTaxEst: Math.round(propertyPriceUsd * 0.001),
+      });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to calculate mortgage' });
+    }
   });
 
   // 11. API: Apartments for Rent

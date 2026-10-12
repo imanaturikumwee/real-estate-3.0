@@ -51,7 +51,17 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex gap-6 lg:gap-8 items-center">
+        <div className="hidden md:flex gap-5 lg:gap-7 items-center">
+          <button
+            onClick={() => handleNavClick('houses-for-sale')}
+            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
+              activeScreen === 'houses-for-sale'
+                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
+                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
+            }`}
+          >
+            For Sale
+          </button>
           <button
             onClick={() => handleNavClick('houses')}
             className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
@@ -60,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
             }`}
           >
-            Houses
+            Rentals
           </button>
           <button
             onClick={() => handleNavClick('apartments')}
@@ -275,12 +285,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             Home
           </button>
           <button
+            onClick={() => handleNavClick('houses-for-sale')}
+            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
+              activeScreen === 'houses-for-sale' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
+            }`}
+          >
+            Houses for Sale (Freehold)
+          </button>
+          <button
             onClick={() => handleNavClick('houses')}
             className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
               activeScreen === 'houses' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
             }`}
           >
-            Houses (Rentals)
+            Rental Houses
           </button>
           <button
             onClick={() => handleNavClick('apartments')}

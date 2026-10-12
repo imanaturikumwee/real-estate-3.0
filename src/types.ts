@@ -75,6 +75,7 @@ export type ActiveScreen =
   | 'home'
   | 'properties'
   | 'houses'
+  | 'houses-for-sale'
   | 'apartments'
   | 'land'
   | 'investments'

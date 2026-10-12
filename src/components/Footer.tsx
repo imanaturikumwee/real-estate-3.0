@@ -53,34 +53,42 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenConsultation }
           <ul className="space-y-3.5">
             <li>
               <button
-                onClick={() => onNavigate('properties')}
-                className="text-[#444651] text-sm hover:translate-x-1 hover:text-[#00236f] transition-all inline-block cursor-pointer"
+                onClick={() => onNavigate('houses-for-sale')}
+                className="text-[#444651] text-sm hover:translate-x-1 hover:text-[#00236f] transition-all inline-block cursor-pointer font-medium"
               >
-                Residential Estates
+                Houses for Sale
               </button>
             </li>
             <li>
               <button
-                onClick={() => onNavigate('properties')}
+                onClick={() => onNavigate('houses')}
                 className="text-[#444651] text-sm hover:translate-x-1 hover:text-[#00236f] transition-all inline-block cursor-pointer"
               >
-                Commercial Hubs
+                Rental Houses
               </button>
             </li>
             <li>
               <button
-                onClick={() => onNavigate('invest')}
+                onClick={() => onNavigate('apartments')}
                 className="text-[#444651] text-sm hover:translate-x-1 hover:text-[#00236f] transition-all inline-block cursor-pointer"
               >
-                Land &amp; Investment
+                Luxury Apartments
               </button>
             </li>
             <li>
               <button
-                onClick={() => onNavigate('properties')}
+                onClick={() => onNavigate('land')}
                 className="text-[#444651] text-sm hover:translate-x-1 hover:text-[#00236f] transition-all inline-block cursor-pointer"
               >
-                New Developments
+                Land &amp; Strategic Plots
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => onNavigate('investments')}
+                className="text-[#444651] text-sm hover:translate-x-1 hover:text-[#00236f] transition-all inline-block cursor-pointer"
+              >
+                Investments Marketplace
               </button>
             </li>
           </ul>

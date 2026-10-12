@@ -16,6 +16,7 @@ import { SignInScreen } from './components/SignInScreen';
 import { SignUpScreen } from './components/SignUpScreen';
 import { TenantDashboard } from './components/TenantDashboard';
 import { HousesScreen } from './components/HousesScreen';
+import { HousesForSaleScreen } from './components/HousesForSaleScreen';
 import { ApartmentsScreen } from './components/ApartmentsScreen';
 import { LandScreen } from './components/LandScreen';
 import { InvestmentsScreen } from './components/InvestmentsScreen';
@@ -138,6 +139,16 @@ function AppContent() {
         {/* Houses Screen (Exclusive Rental Estates in Kigali) */}
         {activeScreen === 'houses' && (
           <HousesScreen
+            onSelectProperty={handleSelectProperty}
+            onBookTour={handleBookTourFromProperty}
+            onNavigate={handleNavigate}
+            onOpenConsultation={handleOpenGeneralConsultation}
+          />
+        )}
+
+        {/* Houses for Sale Screen (Exclusive Freehold Estates in Kigali) */}
+        {activeScreen === 'houses-for-sale' && (
+          <HousesForSaleScreen
             onSelectProperty={handleSelectProperty}
             onBookTour={handleBookTourFromProperty}
             onNavigate={handleNavigate}
