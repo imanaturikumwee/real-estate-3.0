@@ -15,6 +15,11 @@ import { ContactScreen } from './components/ContactScreen';
 import { SignInScreen } from './components/SignInScreen';
 import { SignUpScreen } from './components/SignUpScreen';
 import { TenantDashboard } from './components/TenantDashboard';
+import { HousesScreen } from './components/HousesScreen';
+import { ApartmentsScreen } from './components/ApartmentsScreen';
+import { LandScreen } from './components/LandScreen';
+import { InvestmentsScreen } from './components/InvestmentsScreen';
+import { ListPropertyModal } from './components/ListPropertyModal';
 import { FloatingAuthModal } from './components/FloatingAuthModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { ConsultationModal } from './components/ConsultationModal';
@@ -24,6 +29,7 @@ function AppContent() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [consultationPreselectedProperty, setConsultationPreselectedProperty] = useState<Property | null>(null);
+  const [isListPropertyOpen, setIsListPropertyOpen] = useState(false);
 
   // Floating Auth Modal State (Full-length floating modal over the website)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -93,6 +99,7 @@ function AppContent() {
           onNavigate={handleNavigate}
           onOpenConsultation={handleOpenGeneralConsultation}
           onOpenAuth={handleOpenAuth}
+          onOpenListProperty={() => setIsListPropertyOpen(true)}
         />
       )}
 
@@ -126,6 +133,46 @@ function AppContent() {
               onDirectContact={() => handleNavigate('contact')}
             />
           </>
+        )}
+
+        {/* Houses Screen (Exclusive Rental Estates in Kigali) */}
+        {activeScreen === 'houses' && (
+          <HousesScreen
+            onSelectProperty={handleSelectProperty}
+            onBookTour={handleBookTourFromProperty}
+            onNavigate={handleNavigate}
+            onOpenConsultation={handleOpenGeneralConsultation}
+          />
+        )}
+
+        {/* Apartments Screen (Modern Living in Kigali | Premium Rentals) */}
+        {activeScreen === 'apartments' && (
+          <ApartmentsScreen
+            onSelectProperty={handleSelectProperty}
+            onBookTour={handleBookTourFromProperty}
+            onNavigate={handleNavigate}
+            onOpenConsultation={handleOpenGeneralConsultation}
+            onOpenListProperty={() => setIsListPropertyOpen(true)}
+          />
+        )}
+
+        {/* Land Screen (Strategic Plots | Premium Land & Investment Plots) */}
+        {activeScreen === 'land' && (
+          <LandScreen
+            onNavigate={handleNavigate}
+            onOpenConsultation={handleOpenGeneralConsultation}
+          />
+        )}
+
+        {/* Investments Screen (Elite Rwandan Estates | Luxury Marketplace) */}
+        {activeScreen === 'investments' && (
+          <InvestmentsScreen
+            onSelectProperty={handleSelectProperty}
+            onBookTour={handleBookTourFromProperty}
+            onNavigate={handleNavigate}
+            onOpenConsultation={handleOpenGeneralConsultation}
+            onOpenListProperty={() => setIsListPropertyOpen(true)}
+          />
         )}
 
         {activeScreen === 'properties' && (

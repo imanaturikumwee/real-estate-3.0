@@ -7,6 +7,7 @@ interface NavbarProps {
   onNavigate: (screen: ActiveScreen) => void;
   onOpenConsultation: () => void;
   onOpenAuth: (mode?: 'signin' | 'signup') => void;
+  onOpenListProperty?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -14,6 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onOpenConsultation,
   onOpenAuth,
+  onOpenListProperty,
 }) => {
   const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,16 +51,46 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex gap-8 items-center">
+        <div className="hidden md:flex gap-6 lg:gap-8 items-center">
           <button
-            onClick={() => handleNavClick('properties')}
+            onClick={() => handleNavClick('houses')}
             className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
-              activeScreen === 'properties'
+              activeScreen === 'houses'
                 ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
                 : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
             }`}
           >
-            Properties
+            Houses
+          </button>
+          <button
+            onClick={() => handleNavClick('apartments')}
+            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
+              activeScreen === 'apartments'
+                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
+                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
+            }`}
+          >
+            Apartments
+          </button>
+          <button
+            onClick={() => handleNavClick('land')}
+            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
+              activeScreen === 'land'
+                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
+                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
+            }`}
+          >
+            Land
+          </button>
+          <button
+            onClick={() => handleNavClick('investments')}
+            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
+              activeScreen === 'investments'
+                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
+                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
+            }`}
+          >
+            Investments
           </button>
           <button
             onClick={() => handleNavClick('tenant-dashboard')}
@@ -70,36 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span className="material-symbols-outlined text-sm">dashboard</span>
             <span>Portal</span>
-          </button>
-          <button
-            onClick={() => handleNavClick('invest')}
-            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
-              activeScreen === 'invest'
-                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
-                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
-            }`}
-          >
-            Invest
-          </button>
-          <button
-            onClick={() => handleNavClick('about')}
-            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
-              activeScreen === 'about'
-                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
-                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
-            }`}
-          >
-            About
-          </button>
-          <button
-            onClick={() => handleNavClick('contact')}
-            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer ${
-              activeScreen === 'contact'
-                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
-                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
-            }`}
-          >
-            Contact
           </button>
         </div>
 
@@ -192,6 +194,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           )}
 
+          {/* List Property CTA Button */}
+          {onOpenListProperty && (
+            <button
+              onClick={onOpenListProperty}
+              className="hidden lg:flex items-center gap-1.5 bg-white border border-[#00236f]/30 hover:border-[#00236f] text-[#00236f] hover:bg-[#00236f]/5 px-3.5 py-2.5 rounded-md font-['Manrope'] text-xs font-bold tracking-wider uppercase transition-all cursor-pointer shadow-2xs"
+            >
+              <span className="material-symbols-outlined text-sm">add_business</span>
+              <span>List Property</span>
+            </button>
+          )}
+
           {/* Enquire Now CTA Button */}
           <button
             onClick={onOpenConsultation}
@@ -262,12 +275,44 @@ export const Navbar: React.FC<NavbarProps> = ({
             Home
           </button>
           <button
+            onClick={() => handleNavClick('houses')}
+            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
+              activeScreen === 'houses' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
+            }`}
+          >
+            Houses (Rentals)
+          </button>
+          <button
+            onClick={() => handleNavClick('apartments')}
+            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
+              activeScreen === 'apartments' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
+            }`}
+          >
+            Apartments
+          </button>
+          <button
+            onClick={() => handleNavClick('land')}
+            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
+              activeScreen === 'land' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
+            }`}
+          >
+            Strategic Land &amp; Plots
+          </button>
+          <button
+            onClick={() => handleNavClick('investments')}
+            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
+              activeScreen === 'investments' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
+            }`}
+          >
+            Investments Marketplace
+          </button>
+          <button
             onClick={() => handleNavClick('properties')}
             className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
               activeScreen === 'properties' ? 'text-[#00236f] font-bold' : 'text-[#444651]'
             }`}
           >
-            Properties
+            All Properties &amp; Map
           </button>
           <button
             onClick={() => handleNavClick('tenant-dashboard')}
@@ -277,6 +322,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             Tenant &amp; Buyer Portal
           </button>
+          {onOpenListProperty && (
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenListProperty();
+              }}
+              className="w-full py-2.5 bg-[#00236f] text-white text-xs font-bold rounded-lg uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <span className="material-symbols-outlined text-sm">add_business</span>
+              <span>List Property</span>
+            </button>
+          )}
           <button
             onClick={() => handleNavClick('invest')}
             className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${

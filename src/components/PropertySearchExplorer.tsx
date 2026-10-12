@@ -12,6 +12,7 @@ interface PropertySearchExplorerProps {
   onBookTour?: (property: Property) => void;
   onNavigate?: (screen: any) => void;
   onOpenConsultation?: () => void;
+  hideSidebarRail?: boolean;
 }
 
 export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
@@ -22,6 +23,7 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
   onBookTour,
   onNavigate,
   onOpenConsultation,
+  hideSidebarRail = false,
 }) => {
   const { user } = useAuth();
 
@@ -234,11 +236,12 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
       {/* -------------------------------------------------------------
           LEFT NAVIGATION RAIL (Responsive Desktop & Tablet Sidebar)
           ------------------------------------------------------------- */}
-      <aside
-        className={`bg-white border-r border-[#c5c5d3]/20 flex-shrink-0 transition-all duration-300 z-30 flex flex-col justify-between ${
-          sidebarCollapsed ? 'w-16 md:w-20' : 'w-full md:w-64 lg:w-72'
-        } hidden md:flex min-h-[calc(100vh-5rem)] sticky top-20`}
-      >
+      {!hideSidebarRail && (
+        <aside
+          className={`bg-white border-r border-[#c5c5d3]/20 flex-shrink-0 transition-all duration-300 z-30 flex flex-col justify-between ${
+            sidebarCollapsed ? 'w-16 md:w-20' : 'w-full md:w-64 lg:w-72'
+          } hidden md:flex min-h-[calc(100vh-5rem)] sticky top-20`}
+        >
         <div className="p-4 lg:p-5 flex flex-col h-full">
           {/* Header Brand Indicator */}
           <div className="flex items-center justify-between pb-4 border-b border-[#c5c5d3]/15">
@@ -370,6 +373,7 @@ export const PropertySearchExplorer: React.FC<PropertySearchExplorerProps> = ({
           )}
         </div>
       </aside>
+      )}
 
       {/* -------------------------------------------------------------
           MAIN SEARCH & INTERACTIVE VIEWPORT

@@ -44,6 +44,16 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [reportData, setReportData] = useState<any>(null);
+
+  // Dynamic Dashboard Stats from backend
+  const [stats, setStats] = useState({
+    savedEstatesCount: 12,
+    activeInquiriesCount: 4,
+    portfolioValue: '$1.2M',
+    newMatchesToday: 2,
+  });
 
   // Message thread state
   const [activeChatAgent, setActiveChatAgent] = useState<'david' | 'sandra'>('david');
@@ -66,6 +76,32 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
   ]);
   const [inputMessage, setInputMessage] = useState('');
 
+  // Fetch live dashboard & inquiries from backend
+  React.useEffect(() => {
+    fetch('/api/portal/dashboard')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.stats) {
+          setStats(data.stats);
+        }
+      })
+      .catch((err) => {
+        console.warn('Using client fallback for portal dashboard stats', err);
+      });
+  }, []);
+
+  // Fetch live chat messages when active agent changes
+  React.useEffect(() => {
+    fetch(`/api/portal/messages?agent=${activeChatAgent}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.messages)) {
+          setChatMessages(data.messages);
+        }
+      })
+      .catch(() => {});
+  }, [activeChatAgent]);
+
   const displayName = user?.fullName || 'Emma Umutoni';
   const displayRole = user?.role === 'buyer' ? 'Buyer Portal' : 'Tenant Portal';
   const avatarUrl =
@@ -77,12 +113,29 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputMessage.trim()) return;
-    const newMsg = { sender: 'user' as const, text: inputMessage.trim(), time: 'Just now' };
+    const textToSend = inputMessage.trim();
+    const newMsg = { sender: 'user' as const, text: textToSend, time: 'Just now' };
     setChatMessages((prev) => [...prev, newMsg]);
     setInputMessage('');
+
+    try {
+      const res = await fetch('/api/portal/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ agent: activeChatAgent, text: textToSend }),
+      });
+      const data = await res.json();
+      if (data.success && data.messages) {
+        setChatMessages(data.messages);
+        return;
+      }
+    } catch (e) {
+      // Fallback local response
+    }
+
     setTimeout(() => {
       setChatMessages((prev) => [
         ...prev,
@@ -93,6 +146,22 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
         },
       ]);
     }, 1000);
+  };
+
+  const handleDownloadFullReport = async () => {
+    try {
+      const res = await fetch('/api/portal/report', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setReportData(data);
+        setIsReportModalOpen(true);
+        showToast('Kigali High-End Market Intelligence report generated!');
+      } else {
+        showToast('Full Q3/Q4 Kigali Market Report downloaded to your device.');
+      }
+    } catch {
+      showToast('Full Q3/Q4 Kigali Market Report downloaded to your device.');
+    }
   };
 
   // Recommended estates for the tenant/buyer
@@ -588,7 +657,7 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
                   onClick={() => setActiveTab('search')}
                   className="text-[#00236f] font-semibold underline hover:opacity-80 cursor-pointer"
                 >
-                  2 new property matches
+                  {stats.newMatchesToday} new property matches
                 </button>{' '}
                 found in Gasabo today.
               </p>
@@ -606,7 +675,7 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
                     Saved Estates
                   </p>
                   <p className="text-3xl font-bold mt-1 text-[#191c1d] group-hover:text-white font-['Manrope']">
-                    12
+                    {stats.savedEstatesCount}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-colors">
@@ -629,7 +698,7 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
                     Active Inquiries
                   </p>
                   <p className="text-3xl font-bold mt-1 text-[#191c1d] group-hover:text-white font-['Manrope']">
-                    04
+                    0{stats.activeInquiriesCount}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-colors">
@@ -649,7 +718,7 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
                     Portfolio Value
                   </p>
                   <p className="text-3xl font-bold mt-1 text-[#191c1d] group-hover:text-white font-['Manrope']">
-                    $1.2M
+                    {stats.portfolioValue}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-colors">
@@ -876,7 +945,7 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
                   </div>
 
                   <button
-                    onClick={() => showToast('Full Q3/Q4 Kigali Market Report downloaded to your device.')}
+                    onClick={handleDownloadFullReport}
                     className="mt-8 w-full py-3 border border-[#00236f]/30 text-[#00236f] bg-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-[#00236f] hover:text-white transition-all cursor-pointer shadow-xs active:scale-98"
                   >
                     Download Full Report
@@ -973,6 +1042,7 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
               onBookTour={onBookTour}
               onNavigate={onNavigate}
               onOpenConsultation={onOpenConsultation}
+              hideSidebarRail={true}
             />
           </div>
         )}
@@ -1341,6 +1411,96 @@ export const TenantDashboard: React.FC<TenantDashboardProps> = ({
                   className="px-4 py-2.5 border border-slate-300 text-slate-700 rounded-xl font-bold text-xs hover:bg-slate-50 transition-colors"
                 >
                   Reschedule
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Market Report Modal */}
+      {isReportModalOpen && (
+        <div
+          onClick={() => setIsReportModalOpen(false)}
+          className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex justify-between items-start pb-4 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#00236f] text-white flex items-center justify-center font-black">
+                  <span className="material-symbols-outlined text-2xl">insights</span>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-blue-900 tracking-widest block">
+                    Emma &amp; Dany · Research Desk
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-['Manrope']">
+                    {reportData?.title || 'Q3/Q4 2026 Kigali High-End Market Intelligence'}
+                  </h3>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsReportModalOpen(false)}
+                className="p-1 rounded-full text-slate-400 hover:text-slate-800 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-xl">close</span>
+              </button>
+            </div>
+
+            <div className="mt-6 space-y-6 text-xs text-slate-600">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                  <span className="text-slate-400 text-[10px] uppercase block">Gasabo Growth</span>
+                  <span className="text-lg font-extrabold text-[#00236f]">+15.2%</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                  <span className="text-slate-400 text-[10px] uppercase block">Kicukiro Yield</span>
+                  <span className="text-lg font-extrabold text-emerald-700">12.4%</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                  <span className="text-slate-400 text-[10px] uppercase block">Nyarugenge Prime</span>
+                  <span className="text-lg font-extrabold text-[#00236f]">+8.9%</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                  <span className="text-slate-400 text-[10px] uppercase block">Occupancy Rate</span>
+                  <span className="text-lg font-extrabold text-purple-700">98%</span>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 text-slate-700 leading-relaxed space-y-2">
+                <h4 className="font-bold text-blue-900 text-sm">Executive Overview</h4>
+                <p>
+                  {reportData?.summary ||
+                    'Kigali prime residential and commercial yields continue to lead East Africa, driven by the Kigali International Financial Centre (KIFC) expansion, diplomatic embassy relocations to Nyarutarama, and the Bugesera Airport expressway connectivity corridor.'}
+                </p>
+                <p className="text-[11px] text-slate-500 pt-1">
+                  Report Reference: <span className="font-mono font-bold text-slate-700">{reportData?.reportId || 'RPT-KGL-849102'}</span> · Verified by City of Kigali Master Plan 2050 Directorate.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setIsReportModalOpen(false);
+                    showToast('PDF Report downloaded to your device.');
+                  }}
+                  className="flex-1 py-3 bg-[#00236f] text-white rounded-xl font-bold text-xs hover:bg-[#001c55] transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-base">download</span>
+                  <span>Save Official PDF Dossier</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setIsReportModalOpen(false);
+                    window.print();
+                  }}
+                  className="px-5 py-3 border border-slate-300 text-slate-700 rounded-xl font-bold text-xs hover:bg-slate-50 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-base">print</span>
+                  <span>Print Dossier</span>
                 </button>
               </div>
             </div>

@@ -903,15 +903,680 @@ async function startServer() {
     res.json({ success: true, id, isFavorite: isFav, totalFavorites: savedFavorites.size });
   });
 
-  // 9. Portfolio statistics
-  app.get('/api/portfolio', (_req: Request, res: Response) => {
+  // -------------------------------------------------------------
+  // Curated Datasets for Houses, Apartments, Land, and Investments
+  // -------------------------------------------------------------
+
+  const housesDataset = [
+    {
+      id: 'house-obsidian-ridge',
+      title: 'The Obsidian Ridge',
+      neighborhood: 'Nyarutarama',
+      location: 'Nyarutarama, Kigali',
+      monthlyRentRwf: 3200000,
+      priceDisplay: 'RWF 3.2M',
+      beds: 4,
+      baths: 3,
+      areaM2: 450,
+      propertyType: 'Residential Villa',
+      category: 'RESIDENTIAL',
+      aiScore: 9.8,
+      isFeatured: true,
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'High-Speed WiFi'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBuGAIKUQvpl-Hl6r4oC2hhqwm3zmZXDhZCJrPC92MfOKGSmCkDOjOrbMBrXpF6_LEkgc1eYBV-B65sa0VnYpikb7k1MkHkdS7wdOZODq4FRm0e4b3S4OEUy5tg6rT_Sh7oabxkYDL5-kfG6W1A22D_-sg6OveoQ11i0bbonwkElpnd0tvkIGHxeowV5UAGaLg5ohUnDkS89BhmDUdYJLN0rK2BapuHYfM2WeBgYaNHp8X9oB4V9R62gd6Vmp52PZ3U9lbtBIac9_hR',
+      coordinates: { lat: -1.9368, lng: 30.0988 },
+      mapPinLabel: 'RWF 3.2M',
+      description: 'Handcrafted architectural villa featuring Musanze volcanic stone, floor-to-ceiling glass, private heated lap pool, and panoramic views of Kigali Golf Club.',
+    },
+    {
+      id: 'house-emerald-terraces',
+      title: 'Emerald Terraces',
+      neighborhood: 'Kibagabaga',
+      location: 'Kibagabaga, Kigali',
+      monthlyRentRwf: 1800000,
+      priceDisplay: 'RWF 1.8M',
+      beds: 3,
+      baths: 2,
+      areaM2: 320,
+      propertyType: 'Modern Townhouse',
+      category: 'PREMIUM',
+      aiScore: 9.2,
+      amenities: ['Private Pool', 'Solar Energy', 'High-Speed WiFi'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBIoH1CD8fCbIbvUl0dCcjQZgMlhVs3ydWlJEG32UisPFIr5_gW369a0uArsjdyIPEyzZjtT9SGlr7k1jGkXVDHl5mFy3lBW6LDiW1DgvkbzIONHklpO_YN-5_F5gwyJ0GuLHGhMk7JsP84P_vzFvOPC7g6Iz6z9pKeaEMYyfxvpdMSduibpWwR1hBjDUvJlx6egYWmU-YSNNXuJg01ek3JZBUNxaoP3H3shtEVN8Xq8mVd0kVwG7AO8Upm90fRb2z_M2j6UOKL6iye',
+      coordinates: { lat: -1.944, lng: 30.125 },
+      mapPinLabel: 'RWF 1.8M',
+      description: 'Sleek Scandinavian-tropical hybrid residence with open courtyard garden, natural timber louvers, and infinity views overlooking the Kimironko valley.',
+    },
+    {
+      id: 'house-horizon-heights',
+      title: 'Horizon Heights',
+      neighborhood: 'Rebero',
+      location: 'Rebero Hill, Kigali',
+      monthlyRentRwf: 4500000,
+      priceDisplay: 'RWF 4.5M',
+      beds: 5,
+      baths: 5,
+      areaM2: 680,
+      propertyType: 'Estate Mansion',
+      category: 'INVESTMENT GRADE',
+      aiScore: 9.9,
+      isFeatured: true,
+      badge: "Editor's Choice",
+      amenities: ['Private Pool', 'Mountain View', 'Solar Energy', 'High-Speed WiFi'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDcedMGqJ2ghqMY2ljqkmRN5zTKzA-RDNdSxHfN7AC1S04DYDT-oIxOQ8XwGL11yHjLJ2cY7RcgeK7x0n3_djmJSN8IuZ7uOI-UpkFtiJ956BYnPER2yUEH4aRICejlUcbg4aAk764HzuyVDoXcYWXwY4oulkzTLiL5w6U5vKkjz29Tlahx9wPM_ro42zuSxNAxSp95bO33wT0t1b4Oay0BbYINH9hTixDEiCRxYeuGdDra4yWlW-Gd22vZUMV2zxUmxVTCc23VB5AA',
+      coordinates: { lat: -1.982, lng: 30.082 },
+      mapPinLabel: 'RWF 4.5M',
+      description: 'Experience unparalleled panoramic views of the city. This state-of-the-art smart home features zero-carbon energy systems, a triple-tier security perimeter, and an infinity pool merging with the horizon.',
+    },
+  ];
+
+  const apartmentsDataset = [
+    {
+      id: 'apt-horizon-heights',
+      title: 'Horizon Heights Penthouse',
+      neighborhood: 'Nyarutarama',
+      location: 'Nyarutarama, District Gasabo',
+      monthlyRentRwf: 2400000,
+      priceDisplay: 'RWF 2,400,000',
+      beds: 3,
+      baths: 2.5,
+      floorLevel: '12th Floor',
+      floorLevelCategory: '6+',
+      aiScore: 9.8,
+      category: 'Featured',
+      tag: 'New Construction',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA9L4OJgOUvfqUbnCl1v-rgiVQpBceNUeNhWfZ0_rliHxExMPPfU7FZrviRNnTKab7XFP-91UHPcEEhvMPa2vfyMpFi8hrK4x-UYo1U8XtfE3OQHiV7J_XdOyIIoELXmXNVU-GIOqSWkTQLiRFJe02JzXU45Fu14N06AUBZnG5aqA_yZoU4FDyZpddYKAt5d17VEsHSYiLjLP7O3patxwuuNk8UylkVj_tNIxZKnhhmsB3vepfwIPsiQS1pPq_ppw-_hSGtsRaoK7kH',
+      coordinates: { lat: -1.9368, lng: 30.0988 },
+      mapPinLabel: '2.4M',
+      description: 'High-end penthouse living with floor-to-ceiling glass windows at sunset, private balcony lounge, 24/7 concierge, and underground valet parking.',
+    },
+    {
+      id: 'apt-kiyovu-lofts',
+      title: 'The Kiyovu Lofts',
+      neighborhood: 'Kiyovu',
+      location: 'Kiyovu, Central Business District',
+      monthlyRentRwf: 950000,
+      priceDisplay: 'RWF 950,000',
+      beds: 1,
+      baths: 1,
+      floorLevel: '3rd Floor',
+      floorLevelCategory: '1-5',
+      aiScore: 8.4,
+      category: 'Eco-Certified',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDbE739TfZTQEEtWRmI6KY2lRaqSGEkwhiW4nmmSHKwuVnuIU1268aab8JT3I4Aif8HbwdLdR8HhXhMBugo7B6pFbJgyuvV23XyEEJBnDsISBzX2PnRJVM3loUbeX1zjOUNsHzb7983dWN63ZV0wpCkySoiZbwp1EsLGUbE9nTZq8jQwjs3P2WtugebwGU6WGbwM44Nnk4S_JaXwVVwuFG-LOvC38vw2q02FZnzqJj8tAydCbYxhjuMm4Ke3MqlIakUhsYlTgvpPaUn',
+      coordinates: { lat: -1.956, lng: 30.064 },
+      mapPinLabel: '950K',
+      description: 'Sleek Scandinavian interior of a living room with warm wood accents, large balcony overlooking rolling green hills of Rwanda, and high-speed fiber.',
+    },
+    {
+      id: 'apt-kimihurura-garden-suites',
+      title: 'Kimihurura Garden Suites',
+      neighborhood: 'Kimihurura',
+      location: 'Kimihurura, Gasabo',
+      monthlyRentRwf: 1800000,
+      priceDisplay: 'RWF 1,800,000',
+      beds: 2,
+      baths: 2,
+      floorLevel: 'Ground',
+      floorLevelCategory: 'Ground',
+      aiScore: 9.1,
+      category: 'Price on request',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAufnkaZ4rdFl3uxX5o5ILbYJk3wSWx7h3ZVo2qg_t2cAOGoIK290ODFUXHBS8dUYes8anKezaamrv1mrcP8qGvFTKFgF370KwYwS06Z5WgtPgrYAheH2ZdXx5DGC85XSEU2hkabtYXjptOjOcFBDK_GXnhMh0cedDYHYfT1PSOgldaYeqxj57SJOywVMPqBUs2aOdOm3L7cl8OIJJPxPNYqitFWlPB7eSHJrnNrvPVkSAVpz3xfBOq7N0a7q43CwPBcMtnTdgaaixJ',
+      coordinates: { lat: -1.961, lng: 30.088 },
+      mapPinLabel: '1.8M',
+      description: 'Luxury infinity pool and private garden patio at dusk, reflecting the city lights of Kigali under a deep indigo sky.',
+    },
+  ];
+
+  const landDataset = [
+    {
+      id: 'plot-rebero-plateau',
+      title: 'Rebero Panoramic Plateau',
+      location: 'Rebero Summit, Kigali',
+      price: 240000,
+      priceDisplay: '$240,000',
+      sizeSqm: 2500,
+      zoning: 'Residential (R1)',
+      topography: 'Plateau',
+      investmentScore: 9.4,
+      description: 'Prime residential plot with 180-degree views of the valley. Fully serviced with municipal water, fiber, and underground electricity connections.',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuC4G7ws4vjXvK15UU3vlPq7cIlQ2J_J7ZdQAIANOk2mk-toIGPKKeZCB8g_7OG-NK0l7-eLEJt0EOIOB4SyeLhp7wxrjnYsPN4_FB5uAOi-qGf3FWqXwPAjE-PLrVPDajC0iKtwDkxtYwA8V1rKvJrtXxJjsNFIEQ6H-GZ7Y7tG33V7XtV8EKlWIuCPhXm9DwUvksQNUi4W_ypDeWt8OwG6Q3ES6VibXdm8BhFa8cglBUs7cBHOpLoPMF5wMXbwN9iES4zXIRbvYJti',
+      coordinates: { lat: -1.988, lng: 30.082 },
+      verifiedTitle: true,
+      growthForecast: '+14.2% YoY',
+      gradientAnalysis: '5% gradient on North-East quadrant, ideal for multi-level construction.',
+    },
+    {
+      id: 'plot-kicukiro-commercial',
+      title: 'Kicukiro Commercial Hub',
+      location: 'Kicukiro Business Corridor, Kigali',
+      price: 450000,
+      priceDisplay: '$450,000',
+      sizeSqm: 5000,
+      zoning: 'Commercial (C1)',
+      topography: 'Flat Plain',
+      investmentScore: 8.8,
+      description: 'High-visibility corner plot ideal for mixed-use retail, corporate headquarters, or tech incubator development with dual-artery tarmac access.',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAoDmE4y1EDZXtslRW3AXWMu9WvaXMCyNCsxduYh739ZaFKPDmyriQvL4eMNByVb_KWowtVxQkJk8OX7ZAXpd-Tl9TANdRZNrzqkdYeHN9A_LhE6ZWZkUasmI8dmSEtLm8P1gHaHnWDstLw1Oj-3nKZ0lzmLYYRLDNZB8934LFmXvt0USgtDD4kv1wWPkpQXxM_vh0sMr510u_K5vwdbjPrcYvc9G4Y9NVbBkh7couW1K8Jc-Os3T3isvdIY-qNLyTKA4D-XQ96rAqh',
+      coordinates: { lat: -1.968, lng: 30.112 },
+      verifiedTitle: true,
+      growthForecast: '+12.4% YoY',
+      gradientAnalysis: 'Flat plateau terrain with 0% runoff gradient, zero retaining wall cost required.',
+    },
+    {
+      id: 'plot-nyarutarama-lakeview',
+      title: 'Nyarutarama Lakeview Plot',
+      location: 'Nyarutarama Ridge, Kigali',
+      price: 380000,
+      priceDisplay: '$380,000',
+      sizeSqm: 3200,
+      zoning: 'Residential (R1)',
+      topography: 'Gentle Slope',
+      investmentScore: 9.6,
+      description: 'Exclusive plot with direct views of the Kigali Golf Course and artificial lake. Approved architectural designs for ambassadorial residence included.',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDgk7t-O9neSfbz26AXs7VcRIgbb8g1We96jNHYU8WfCWFvoz0SEqIsCPKjcSeI-Pau3xO7mxViJhnic8SJwyKApmQXqn5Wat781J7dPEpKOYcKGji0sok8yYPyfQKhYtEheBaUf7rvdQZaddiylzEdvGyq_sYV39ggtFtCxxF2EVEQtI5dNoPsxPl1K9chO4Q6kY3TetNzj5dB548Qz6yOZP-9ERoTaTJKVqJovLtgnzsoTyZ0E4goYUnB3Vy1a61d9atrW6eKpECa',
+      coordinates: { lat: -1.936, lng: 30.098 },
+      verifiedTitle: true,
+      growthForecast: '+15.2% YoY',
+      gradientAnalysis: '8% gentle slope optimizing natural gravity drainage and stepped cantilever architecture.',
+    },
+  ];
+
+  const investmentsDataset = [
+    {
+      id: 'invest-nyaru-villa',
+      title: 'Nyaru Villa Residencies',
+      location: 'Rebero Heights, Kigali',
+      price: 850000,
+      priceDisplay: '$850,000',
+      roiYield: '8.4%',
+      roiYieldNum: 8.4,
+      tag: 'Investment Grade',
+      landStatus: 'New Construction',
+      beds: 4,
+      areaM2: 1200,
+      features: ['Solar-Ready', 'Infinity Pool', 'Sustainable Clay-Brick'],
+      description: 'Modern Afro-Minimalism. Featuring 4 ensuite bedrooms, infinity pool, and sustainable clay-brick integration in Kigali’s fastest-appreciating scenic zone.',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCilCaYhKOZCFXc6eh5EXLHWjm-I1OypFXkrmEHgLlmB3HsntZB7WlHGZIMSs0l6g7p4xgpLxAcTGaaq3p8eErYx1lXro_ep8GfK2O_RCd_R8F1yXre-MDc48ORIKDP5bmDi6y1u7K897FuQ84R9WKV8bMG8RhOaoMCGjayNhnd8jyd-K2XaIaScu7xBpIOc0ijlnyDaR0I4IHzcCfEr47GHBhNZ17m3UkCbiGKm5exe69HMbYTrPzLsoWl74Ay_ftvSG1sMd5t81HE',
+      coordinates: { lat: -1.982, lng: 30.082 },
+      mapPinLabel: '$850k',
+    },
+    {
+      id: 'invest-the-timber-house',
+      title: 'The Timber House',
+      location: 'Nyarutarama District, Kigali',
+      price: 1250000,
+      priceDisplay: '$1,250,000',
+      roiYield: '7.1%',
+      roiYieldNum: 7.1,
+      tag: 'High Demand',
+      landStatus: 'New Construction',
+      beds: 5,
+      areaM2: 2500,
+      features: ['Lap Pool', 'Teak Finishes', 'Smart-Home'],
+      description: 'Nordic-Tropical Hybrid. Floor-to-ceiling glass walls, premium teak finishes, and smart-home ecosystem integration with diplomat tenancy in place.',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuChUT1KipIoxLG_OjqiTZYjqJHeN2POmhudYewqr2C16moRUbUnVdZmLmzc-8VwzvvbPf5i_bmW13ztGGLuTxGe-CnCOJO_CZIXaFOCh6dZWGKdMnDw_l1vYI9YQDy9JGvtJ6f4acQThE7hSx0xRAoAArxf0mxyJurcPzBGGThLjWgYMIHc8cBJEIudVmKYIDNiX_7pOyEkMVo4wd3OnSJyPPqkDPQhHrcWpM4lQk6JCQ5wVHBJU_lvI3XhToSwH4R_ajWby4uDtj9a',
+      coordinates: { lat: -1.936, lng: 30.103 },
+      mapPinLabel: '$1.25M',
+    },
+    {
+      id: 'invest-kivubelt-luxury',
+      title: 'Kiyovu Panoramic Estate',
+      location: 'Kiyovu, Kigali',
+      price: 640000,
+      priceDisplay: '$640,000',
+      roiYield: '9.2%',
+      roiYieldNum: 9.2,
+      tag: 'Prime Yield',
+      landStatus: 'Resale',
+      beds: 3,
+      areaM2: 850,
+      features: ['Central Location', 'High Occupancy', 'Refurbished'],
+      description: 'Centrally located estate in Old Kiyovu with proven 9.2% annual yield, corporate long-lease tenancy, and lush tropical mature garden.',
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCGGBSEI_gmOrmBmbORG_C2nEM-GUyxCi-132RFPUTpZtPku_la-yK0nuOF1q4xHNRZ7opKZ6qFlATogkeDAXVB1DivZ9rO5F97MTbTfszjYqLyOrCeWuqSDRz1xVYfxWRpMu-q9vADJNCzIr4k4laQlG4sWwsIxODyyu4QPL1PGvu9FtqTMo_0ynyQU9RY816bT2BOPcp_WeBSJ_gVHlju9WifNEQ7PNG7V2BM4UboJfWGs9Q-wSfwzbIpLfOYJT1YfV2cOX8toGPE',
+      coordinates: { lat: -1.956, lng: 30.064 },
+      mapPinLabel: '$640k',
+    },
+  ];
+
+  // 10. API: Houses for Rent
+  app.get('/api/houses', (req: Request, res: Response) => {
+    let list = [...housesDataset];
+    const { minRent, maxRent, bedrooms } = req.query;
+
+    if (minRent) list = list.filter((h) => h.monthlyRentRwf >= Number(minRent));
+    if (maxRent) list = list.filter((h) => h.monthlyRentRwf <= Number(maxRent));
+    if (bedrooms) list = list.filter((h) => h.beds >= Number(bedrooms));
+
+    res.json({ success: true, count: list.length, houses: list });
+  });
+
+  // 11. API: Apartments for Rent
+  app.get('/api/apartments', (req: Request, res: Response) => {
+    let list = [...apartmentsDataset];
+    const { floorLevel, bedrooms } = req.query;
+
+    if (floorLevel && floorLevel !== 'All') {
+      list = list.filter((a) => a.floorLevelCategory === floorLevel);
+    }
+    if (bedrooms) {
+      list = list.filter((a) => a.beds >= Number(bedrooms));
+    }
+
+    res.json({ success: true, count: list.length, apartments: list });
+  });
+
+  // 12. API: Strategic Land Plots
+  app.get('/api/land', (req: Request, res: Response) => {
+    let list = [...landDataset];
+    const { minSize, maxSize, zoning, topography } = req.query;
+
+    if (minSize) list = list.filter((p) => p.sizeSqm >= Number(minSize));
+    if (maxSize) list = list.filter((p) => p.sizeSqm <= Number(maxSize));
+    if (zoning && zoning !== 'All Zoning') list = list.filter((p) => p.zoning.includes(String(zoning)));
+    if (topography && topography !== 'Any Terrain') list = list.filter((p) => p.topography === topography);
+
+    res.json({ success: true, count: list.length, plots: list });
+  });
+
+  // 13. API: Luxury Investments
+  app.get('/api/investments', (req: Request, res: Response) => {
+    let list = [...investmentsDataset];
+    const { minRoi, landStatus } = req.query;
+
+    if (minRoi) list = list.filter((item) => item.roiYieldNum >= Number(minRoi));
+    if (landStatus && landStatus !== 'All') list = list.filter((item) => item.landStatus === landStatus);
+
+    res.json({ success: true, count: list.length, investments: list });
+  });
+
+  // 14. API: Land Inquiries & Topographic Analysis
+  app.post('/api/land/inquiry', (req: Request, res: Response) => {
+    try {
+      const { plotId, plotTitle, fullName, email, phone, terrainNotes } = req.body;
+      const inquiryRef = 'LAND-VIP-' + Math.floor(1000 + Math.random() * 9000);
+      res.status(201).json({
+        success: true,
+        message: 'Topographic inspection dossier dispatched to engineering desk.',
+        inquiryRef,
+        plotTitle,
+      });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to record land inquiry' });
+    }
+  });
+
+  // 15. API: Submit Property for Listing (List Property CTA)
+  app.post('/api/properties/list', (req: Request, res: Response) => {
+    try {
+      const { title, neighborhood, price, propertyCategory, beds, baths, areaM2, ownerName, ownerContact } = req.body;
+      const listingId = 'LST-' + Date.now().toString(36).toUpperCase();
+      res.status(201).json({
+        success: true,
+        message: 'Property listing submitted for architectural accreditation.',
+        listingId,
+        title,
+        neighborhood,
+      });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to submit listing' });
+    }
+  });
+
+  // -------------------------------------------------------------
+  // 16. Tenant & Buyer Portal Backend APIs (The Attached Page Backend)
+  // -------------------------------------------------------------
+
+  interface PortalInquiryItem {
+    id: string;
+    propertyId: string;
+    propertyTitle: string;
+    propertyImage: string;
+    agentName: string;
+    agentRole: string;
+    agentColor: string;
+    lastUpdate: string;
+    status: 'In Review' | 'Scheduled' | 'Approved' | 'Completed';
+    statusColor: string;
+    date: string;
+    notes: string;
+  }
+
+  const portalInquiriesDb: PortalInquiryItem[] = [
+    {
+      id: 'inq-01',
+      propertyId: 'kigali-view-heights',
+      propertyTitle: 'Kigali View Heights',
+      propertyImage:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDxXtRXCeM7yJjlUpkCMS6PmV7yPQoVVwxBWQuy2zccG30V6H2LYXCjMg066TQ707HjxdRHCrJMQVah5tZKkzIrc_Q6RsSIzejHNwrrMXrX5ADkNvmpFHJUuTcMHjcal7hlPO-oqXdIdQYfgfD2EszOJQEQCGU1zZgPSYoBCSoTSPUp8GsuGdlTVVXQotqv-8FaMxqRKDsKMyp4YTBgv7lhRVjfiy82sxx98OOPmU51rg_LP26fg0va25_Mj4uJaAl5z8avC5fvC3Qi',
+      agentName: 'David Rugamba',
+      agentRole: 'Senior Concierge Specialist',
+      agentColor: 'bg-amber-100',
+      lastUpdate: '2 hours ago',
+      status: 'Scheduled',
+      statusColor: 'bg-emerald-100 text-emerald-800',
+      date: 'Sat, Oct 17 • 2:00 PM',
+      notes: 'Private viewing arranged with diplomatic chauffeur. Floor plan blueprints and land title ready.',
+    },
+    {
+      id: 'inq-02',
+      propertyId: 'the-hub-apartments',
+      propertyTitle: 'The Hub Apartments',
+      propertyImage:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBC279QpWz3qX4n0B0B7F4oWjM8K5oXW70j5_09gL5pM-v32x90l1mK8j39B0pU4bL20K8mN1_50K9B60M0pL2B3N6vL2M30v1P4K8L9M0B50v1N2M3L0K9B8M70v1N4M0L50K8N9v1P3L0K2B5N8M0v1P4K8L9M0B50v1N2M3L0K9B8M7',
+      agentName: 'Sandra Umutoni',
+      agentRole: 'Investment Portfolio Director',
+      agentColor: 'bg-blue-100',
+      lastUpdate: 'Yesterday',
+      status: 'In Review',
+      statusColor: 'bg-blue-100 text-blue-900',
+      date: 'Tue, Oct 20 • 10:30 AM',
+      notes: 'Commercial lease agreement review with Emma & Dany legal desk.',
+    },
+    {
+      id: 'inq-03',
+      propertyId: 'nyarutarama-heights',
+      propertyTitle: 'Nyarutarama Heights Penthouse',
+      propertyImage:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCUOhQL5jMcnbiwfsVMXu8wIJrtacsGdJmCc1cVFy-nc_HWacnpWp2iUct98HbBPMxx8L1q4FMktUDRKj-xLjvUUWWthqFE01CvpXMaLykGys6PXkk3HF7YtjM4Xp3GLOqJ0DWMvIMEfpsSOu0KunGp2lFZNnBY2hkLxxD67Q-S9__t5UCr3vnDLpVSt-8X9oq4UJvHy92eSyWm_NaDWL0oJsabAD117CG7-UQEZY4ouFRHLOGZh0WUaKHDyiVviz-lH40WEzrBIl4H',
+      agentName: 'David Rugamba',
+      agentRole: 'Senior Concierge Specialist',
+      agentColor: 'bg-amber-100',
+      lastUpdate: '3 days ago',
+      status: 'Approved',
+      statusColor: 'bg-purple-100 text-purple-900',
+      date: 'Completed Inspection',
+      notes: 'Proof of Funds verified; seller accepted preliminary acquisition protocol.',
+    },
+    {
+      id: 'inq-04',
+      propertyId: 'gacuriro-golf-villas',
+      propertyTitle: 'Gacuriro Golf Villas',
+      propertyImage:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAiD5Sf302m49Cgl-HKJ79zbgX_vYXr14YiY-2H3w1VccGCbknMc7gsPFVsvebvnaikmFIG90qJYlxf5cweT_l07hr1Ks94IrIQDYBSVfly_gNdV5KkXfm8s6U0r9VUx5kNCOqfIkPuwwCCctJqszViRLSBD-TqllsHp4q-8YjDHRVnAJl-fbU9obyTN9vslCKCvAy5sDSQOoAYZ4tcgi7C5EQoHF6dHHUSCCfGb2ImYaiwBT0Jjq1dEHcc9D628oT78YCPzen7-Yaq',
+      agentName: 'Sandra Umutoni',
+      agentRole: 'Investment Portfolio Director',
+      agentColor: 'bg-blue-100',
+      lastUpdate: '1 week ago',
+      status: 'Completed',
+      statusColor: 'bg-slate-100 text-slate-800',
+      date: 'Tour Concluded',
+      notes: 'Client reviewed architectural blueprints and environmental drainage clearance.',
+    },
+  ];
+
+  const portalSavedProperties = new Set<string>([
+    'kigali-view-heights',
+    'the-hub-apartments',
+    'nyarutarama-heights',
+    'horizon-residence',
+    'kivubelt-terraces',
+    'vision-city-duplex',
+  ]);
+
+  const portalChatHistory: Record<string, Array<{ id: string; sender: 'user' | 'agent'; text: string; time: string }>> = {
+    david: [
+      {
+        id: 'msg-d1',
+        sender: 'agent',
+        text: 'Hello Emma, I have reviewed your private viewing inquiry for Kigali View Heights. Saturday at 2:00 PM is reserved for you with our diplomatic chauffeur service.',
+        time: '10:30 AM',
+      },
+      {
+        id: 'msg-d2',
+        sender: 'user',
+        text: 'Thank you David! Could you please ensure the floor plan blueprints and land registry documents are ready?',
+        time: '10:45 AM',
+      },
+      {
+        id: 'msg-d3',
+        sender: 'agent',
+        text: 'Certainly. Everything is verified with the Rwanda Land Management and Environment Authority.',
+        time: '11:02 AM',
+      },
+    ],
+    sandra: [
+      {
+        id: 'msg-s1',
+        sender: 'agent',
+        text: 'Greetings Emma, Sandra here. The preliminary ROI audit for The Hub Apartments is ready at 8.2% net yield.',
+        time: 'Yesterday',
+      },
+      {
+        id: 'msg-s2',
+        sender: 'user',
+        text: 'Excellent Sandra. Can we review tax structuring under the Rwanda Development Board (RDB) incentives?',
+        time: 'Yesterday',
+      },
+      {
+        id: 'msg-s3',
+        sender: 'agent',
+        text: 'Yes! RDB provides standard exemptions for registered foreign and diaspora investors. I have linked the schedule.',
+        time: '9:15 AM',
+      },
+    ],
+  };
+
+  const portalDocumentsDb = [
+    {
+      id: 'doc-01',
+      title: 'Rwanda Land Title Deed (UPI 1/02/13/04/10452)',
+      issuer: 'Rwanda Land Management and Environment Authority',
+      date: 'Verified Oct 2026',
+      status: 'Official',
+      type: 'Title Deed',
+      size: '2.4 MB',
+      downloadUrl: '#',
+    },
+    {
+      id: 'doc-02',
+      title: 'Standard VIP Tenancy Agreement Template',
+      issuer: 'Emma & Dany Legal Chambers',
+      date: 'Updated Oct 2026',
+      status: 'Ready',
+      type: 'Legal',
+      size: '850 KB',
+      downloadUrl: '#',
+    },
+    {
+      id: 'doc-03',
+      title: 'Kigali Master Plan Zoning Compliance Certificate',
+      issuer: 'City of Kigali Urban Planning',
+      date: 'Issued Sep 2026',
+      status: 'Certified',
+      type: 'Zoning',
+      size: '3.1 MB',
+      downloadUrl: '#',
+    },
+    {
+      id: 'doc-04',
+      title: 'Environmental Impact Assessment (EIA) Clearance',
+      issuer: 'Rwanda Environment Management Authority (REMA)',
+      date: 'Valid through 2028',
+      status: 'Approved',
+      type: 'Environment',
+      size: '1.8 MB',
+      downloadUrl: '#',
+    },
+  ];
+
+  // A. Get Portal Dashboard Overview Data
+  app.get('/api/portal/dashboard', (req: Request, res: Response) => {
     res.json({
-      portfolioValueRwf: '142M RWF',
-      portfolioValueUsd: '$1,890,000',
-      totalHoldings: 3,
-      grossYield: '10.8%',
-      monthlyIncome: '12.4M RWF',
-      occupancyRate: '98%',
+      success: true,
+      stats: {
+        savedEstatesCount: portalSavedProperties.size,
+        activeInquiriesCount: portalInquiriesDb.filter((i) => i.status === 'In Review' || i.status === 'Scheduled').length,
+        portfolioValue: '$1.2M',
+        newMatchesToday: 2,
+      },
+      inquiries: portalInquiriesDb,
+      marketTrends: [
+        { district: 'Gasabo', growth: '+15.2%', percent: 85 },
+        { district: 'Kicukiro', growth: '+12.4%', percent: 75 },
+        { district: 'Nyarugenge', growth: '+8.9%', percent: 60 },
+      ],
+      recentActivity: [
+        {
+          id: 'act-1',
+          type: 'price_drop',
+          title: 'Price Drop Alert',
+          description: "The property 'Palm Grove' just dropped by $15,000.",
+          time: '14 mins ago',
+        },
+        {
+          id: 'act-2',
+          type: 'portfolio_view',
+          title: 'New View',
+          description: 'Sandra Umutoni viewed your shared portfolio link.',
+          time: '2 hours ago',
+        },
+        {
+          id: 'act-3',
+          type: 'document_verified',
+          title: 'Document Verified',
+          description: "Your 'Proof of Funds' was verified by the admin team.",
+          time: '5 hours ago',
+        },
+      ],
+    });
+  });
+
+  // B. Get / Create / Update Inquiries
+  app.get('/api/portal/inquiries', (req: Request, res: Response) => {
+    res.json({ success: true, inquiries: portalInquiriesDb });
+  });
+
+  app.post('/api/portal/inquiries', (req: Request, res: Response) => {
+    try {
+      const { propertyId, propertyTitle, propertyImage, agentName, date, notes } = req.body;
+      const newInquiry: PortalInquiryItem = {
+        id: 'inq-' + Date.now().toString(36),
+        propertyId: propertyId || 'general',
+        propertyTitle: propertyTitle || 'Exclusive Viewing Request',
+        propertyImage:
+          propertyImage ||
+          'https://lh3.googleusercontent.com/aida-public/AB6AXuDxXtRXCeM7yJjlUpkCMS6PmV7yPQoVVwxBWQuy2zccG30V6H2LYXCjMg066TQ707HjxdRHCrJMQVah5tZKkzIrc_Q6RsSIzejHNwrrMXrX5ADkNvmpFHJUuTcMHjcal7hlPO-oqXdIdQYfgfD2EszOJQEQCGU1zZgPSYoBCSoTSPUp8GsuGdlTVVXQotqv-8FaMxqRKDsKMyp4YTBgv7lhRVjfiy82sxx98OOPmU51rg_LP26fg0va25_Mj4uJaAl5z8avC5fvC3Qi',
+        agentName: agentName || 'David Rugamba',
+        agentRole: 'Senior Concierge Specialist',
+        agentColor: 'bg-amber-100',
+        lastUpdate: 'Just now',
+        status: 'Scheduled',
+        statusColor: 'bg-emerald-100 text-emerald-800',
+        date: date || 'Tomorrow • 10:00 AM',
+        notes: notes || 'Private showing arranged by client via online portal.',
+      };
+      portalInquiriesDb.unshift(newInquiry);
+      res.status(201).json({ success: true, inquiry: newInquiry });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to create inquiry' });
+    }
+  });
+
+  app.patch('/api/portal/inquiries/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { status, date, notes } = req.body;
+    const item = portalInquiriesDb.find((i) => i.id === id);
+    if (!item) {
+      return res.status(404).json({ error: 'Inquiry not found' });
+    }
+    if (status) item.status = status;
+    if (date) item.date = date;
+    if (notes) item.notes = notes;
+    item.lastUpdate = 'Just now';
+    res.json({ success: true, inquiry: item });
+  });
+
+  // C. Saved Estates API
+  app.get('/api/portal/saved', (req: Request, res: Response) => {
+    res.json({ success: true, savedIds: Array.from(portalSavedProperties) });
+  });
+
+  app.post('/api/portal/saved', (req: Request, res: Response) => {
+    const { propertyId } = req.body;
+    if (!propertyId) return res.status(400).json({ error: 'Property ID required' });
+    if (portalSavedProperties.has(propertyId)) {
+      portalSavedProperties.delete(propertyId);
+      res.json({ success: true, saved: false, count: portalSavedProperties.size });
+    } else {
+      portalSavedProperties.add(propertyId);
+      res.json({ success: true, saved: true, count: portalSavedProperties.size });
+    }
+  });
+
+  // D. Portal Messages API
+  app.get('/api/portal/messages', (req: Request, res: Response) => {
+    const agent = (req.query.agent as string) || 'david';
+    const history = portalChatHistory[agent] || portalChatHistory.david;
+    res.json({ success: true, agent, messages: history });
+  });
+
+  app.post('/api/portal/messages', (req: Request, res: Response) => {
+    const { agent, text } = req.body;
+    const targetAgent = agent === 'sandra' ? 'sandra' : 'david';
+    if (!text || !text.trim()) {
+      return res.status(400).json({ error: 'Message text required' });
+    }
+
+    const userMsg = {
+      id: 'msg-' + Date.now().toString(36),
+      sender: 'user' as const,
+      text: text.trim(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+
+    if (!portalChatHistory[targetAgent]) {
+      portalChatHistory[targetAgent] = [];
+    }
+    portalChatHistory[targetAgent].push(userMsg);
+
+    // Auto concierge response after simulated agent typing
+    const replyText =
+      targetAgent === 'david'
+        ? "Thank you for reaching out Emma. I have noted this in your private dossier and will coordinate with the property manager immediately."
+        : "Noted with thanks Emma. I will prepare the financial schedule and have the paperwork ready for our advisory call.";
+
+    const agentReply = {
+      id: 'msg-rep-' + Date.now().toString(36),
+      sender: 'agent' as const,
+      text: replyText,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    portalChatHistory[targetAgent].push(agentReply);
+
+    res.json({
+      success: true,
+      sent: userMsg,
+      reply: agentReply,
+      messages: portalChatHistory[targetAgent],
+    });
+  });
+
+  // E. Documents & Market Report API
+  app.get('/api/portal/documents', (req: Request, res: Response) => {
+    res.json({ success: true, documents: portalDocumentsDb });
+  });
+
+  app.post('/api/portal/report', (req: Request, res: Response) => {
+    res.json({
+      success: true,
+      reportId: 'RPT-KGL-' + Math.floor(100000 + Math.random() * 900000),
+      title: 'Q3/Q4 2026 Kigali High-End Residential & Land Yield Report',
+      generatedAt: new Date().toISOString(),
+      downloadUrl: '#',
+      summary: 'Average rental yields across Gasabo and Nyarutarama stand at 10.2% with a 98% diplomatic occupancy rate.',
     });
   });
 

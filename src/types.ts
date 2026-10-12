@@ -74,6 +74,10 @@ export interface User {
 export type ActiveScreen =
   | 'home'
   | 'properties'
+  | 'houses'
+  | 'apartments'
+  | 'land'
+  | 'investments'
   | 'portfolio'
   | 'saved'
   | 'aimatches'
@@ -84,4 +88,21 @@ export type ActiveScreen =
   | 'signin'
   | 'signup'
   | 'tenant-dashboard';
+
+export interface LandPlot {
+  id: string;
+  title: string;
+  location: string;
+  price: number;
+  priceDisplay: string;
+  sizeSqm: number;
+  zoning: string;
+  topography: string;
+  investmentScore: number;
+  description: string;
+  image: string;
+  coordinates: { lat: number; lng: number };
+  verifiedTitle: boolean;
+  growthForecast: string;
+}
 
