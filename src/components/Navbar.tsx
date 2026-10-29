@@ -102,17 +102,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             Investments
           </button>
-          <button
-            onClick={() => handleNavClick('tenant-dashboard')}
-            className={`font-['Manrope'] text-xs uppercase tracking-[0.2em] transition-all duration-200 cursor-pointer flex items-center gap-1 ${
-              activeScreen === 'tenant-dashboard'
-                ? 'text-[#00236f] font-bold border-b-2 border-[#00236f] pb-1'
-                : 'text-[#444651] opacity-80 hover:opacity-100 hover:text-[#00236f]'
-            }`}
+          <a
+            href="/portal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-['Manrope'] text-xs uppercase tracking-[0.18em] transition-all duration-200 cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#00236f]/30 bg-[#00236f]/5 hover:bg-[#00236f] hover:text-white text-[#00236f] font-extrabold shadow-2xs group"
+            title="Open Tenant & Buyer Portal in a new page"
           >
             <span className="material-symbols-outlined text-sm">dashboard</span>
             <span>Portal</span>
-          </button>
+            <span className="material-symbols-outlined text-[13px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              open_in_new
+            </span>
+          </a>
         </div>
 
         {/* Right Action & Auth Navigation */}
@@ -152,13 +154,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </span>
                   </div>
 
-                  <button
-                    onClick={() => handleNavClick('tenant-dashboard')}
-                    className="w-full text-left px-4 py-2 hover:bg-[#f8f9fa] flex items-center gap-2 text-[#00236f] font-bold"
+                  <a
+                    href="/portal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setUserDropdownOpen(false)}
+                    className="w-full text-left px-4 py-2 hover:bg-[#f8f9fa] flex items-center justify-between text-[#00236f] font-bold group cursor-pointer"
                   >
-                    <span className="material-symbols-outlined text-sm">dashboard</span>
-                    Tenant &amp; Buyer Portal
-                  </button>
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-sm">dashboard</span>
+                      <span>Tenant &amp; Buyer Portal</span>
+                    </div>
+                    <span className="material-symbols-outlined text-xs text-[#757682] group-hover:text-[#00236f] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                      open_in_new
+                    </span>
+                  </a>
                   <button
                     onClick={() => handleNavClick('properties')}
                     className="w-full text-left px-4 py-2 hover:bg-[#f8f9fa] flex items-center gap-2 text-[#444651]"
@@ -332,14 +342,21 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             All Properties &amp; Map
           </button>
-          <button
-            onClick={() => handleNavClick('tenant-dashboard')}
-            className={`block w-full text-left py-2 font-['Manrope'] text-sm uppercase tracking-widest ${
-              activeScreen === 'tenant-dashboard' ? 'text-[#00236f] font-bold' : 'text-[#00236f] font-semibold'
-            }`}
+          <a
+            href="/portal"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center justify-between w-full py-2.5 px-3 rounded-lg bg-[#00236f]/5 border border-[#00236f]/20 font-['Manrope'] text-sm uppercase tracking-widest text-[#00236f] font-bold group"
           >
-            Tenant &amp; Buyer Portal
-          </button>
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-base">dashboard</span>
+              <span>Tenant &amp; Buyer Portal</span>
+            </div>
+            <span className="material-symbols-outlined text-sm opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              open_in_new
+            </span>
+          </a>
           {onOpenListProperty && (
             <button
               onClick={() => {

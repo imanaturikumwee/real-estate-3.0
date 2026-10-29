@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActiveScreen, Property } from './types';
 import { PROPERTIES } from './data/properties';
 import { AuthProvider } from './context/AuthContext';
@@ -25,8 +25,87 @@ import { FloatingAuthModal } from './components/FloatingAuthModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { ConsultationModal } from './components/ConsultationModal';
 
+const pathToScreen = (path: string): ActiveScreen => {
+  const cleanPath = path.toLowerCase().replace(/\/+$/, '') || '/';
+  if (cleanPath === '/portal' || cleanPath === '/tenant-dashboard' || cleanPath === '/dashboard') {
+    return 'tenant-dashboard';
+  }
+  if (cleanPath === '/houses-for-sale' || cleanPath === '/sale') {
+    return 'houses-for-sale';
+  }
+  if (cleanPath === '/houses' || cleanPath === '/rentals') {
+    return 'houses';
+  }
+  if (cleanPath === '/apartments') {
+    return 'apartments';
+  }
+  if (cleanPath === '/land') {
+    return 'land';
+  }
+  if (cleanPath === '/investments') {
+    return 'investments';
+  }
+  if (cleanPath === '/properties') {
+    return 'properties';
+  }
+  if (cleanPath === '/invest') {
+    return 'invest';
+  }
+  if (cleanPath === '/about') {
+    return 'about';
+  }
+  if (cleanPath === '/contact') {
+    return 'contact';
+  }
+  return 'home';
+};
+
+const getInitialScreen = (): ActiveScreen => {
+  if (typeof window === 'undefined') return 'home';
+  const urlParams = new URLSearchParams(window.location.search);
+  const screenParam = urlParams.get('screen');
+  if (screenParam === 'portal' || screenParam === 'tenant-dashboard') return 'tenant-dashboard';
+  if (
+    screenParam &&
+    ['houses', 'houses-for-sale', 'apartments', 'land', 'investments', 'properties', 'invest', 'about', 'contact'].includes(
+      screenParam
+    )
+  ) {
+    return screenParam as ActiveScreen;
+  }
+  return pathToScreen(window.location.pathname);
+};
+
+const screenToPath = (screen: ActiveScreen): string => {
+  switch (screen) {
+    case 'tenant-dashboard':
+      return '/portal';
+    case 'houses':
+      return '/houses';
+    case 'houses-for-sale':
+      return '/houses-for-sale';
+    case 'apartments':
+      return '/apartments';
+    case 'land':
+      return '/land';
+    case 'investments':
+      return '/investments';
+    case 'properties':
+      return '/properties';
+    case 'invest':
+      return '/invest';
+    case 'about':
+      return '/about';
+    case 'contact':
+      return '/contact';
+    case 'home':
+    default:
+      return '/';
+  }
+};
+
 function AppContent() {
-  const [activeScreen, setActiveScreen] = useState<ActiveScreen>('home');
+  const [activeScreen, setActiveScreen] = useState<ActiveScreen>(getInitialScreen);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [consultationPreselectedProperty, setConsultationPreselectedProperty] = useState<Property | null>(null);
@@ -46,14 +125,40 @@ function AppContent() {
     propertyType: 'Villa',
   });
 
+  // Synchronize browser history and title
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveScreen(getInitialScreen());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    if (activeScreen === 'tenant-dashboard') {
+      document.title = 'Tenant & Buyer Portal | Emma & Dany Luxury Realty Kigali';
+    } else if (activeScreen === 'apartments') {
+      document.title = 'Luxury Apartments in Kigali | Emma & Dany';
+    } else if (activeScreen === 'houses-for-sale') {
+      document.title = 'Houses for Sale in Kigali | Emma & Dany';
+    } else if (activeScreen === 'houses') {
+      document.title = 'Rental Houses & Estates | Emma & Dany';
+    } else if (activeScreen === 'land') {
+      document.title = 'Prime Land & Strategic Plots | Emma & Dany';
+    } else if (activeScreen === 'investments') {
+      document.title = 'Investments Marketplace | Emma & Dany';
+    } else {
+      document.title = 'Emma & Dany | Architectural Real Estate in Kigali, Rwanda';
+    }
+  }, [activeScreen]);
+
   const handleSearchFromHero = (filters: {
     location: string;
     priceRange: string;
     propertyType: string;
   }) => {
     setSearchFilters(filters);
-    setActiveScreen('properties');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    handleNavigate('properties');
   };
 
   const handleSelectProperty = (property: Property) => {
@@ -75,7 +180,7 @@ function AppContent() {
     setIsAuthModalOpen(true);
   };
 
-  const handleNavigate = (screen: ActiveScreen) => {
+  const handleNavigate = (screen: ActiveScreen, updateHistory = true) => {
     if (screen === 'signin') {
       handleOpenAuth('signin');
       return;
@@ -85,6 +190,12 @@ function AppContent() {
       return;
     }
     setActiveScreen(screen);
+    if (updateHistory && typeof window !== 'undefined') {
+      const newPath = screenToPath(screen);
+      if (window.location.pathname !== newPath) {
+        window.history.pushState({ screen }, '', newPath);
+      }
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

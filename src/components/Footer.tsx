@@ -133,6 +133,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenConsultation }
               </button>
             </li>
             <li>
+              <a
+                href="/portal"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#00236f] font-bold text-sm hover:translate-x-1 transition-all inline-flex items-center gap-1.5 cursor-pointer group"
+                title="Open Tenant & Buyer Portal in a new page"
+              >
+                <span>Tenant &amp; Buyer Portal</span>
+                <span className="material-symbols-outlined text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                  open_in_new
+                </span>
+              </a>
+            </li>
+            <li>
               <button
                 onClick={() => onNavigate('signin')}
                 className="text-[#00236f] font-semibold text-sm hover:translate-x-1 transition-all inline-block cursor-pointer"

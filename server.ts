@@ -1295,62 +1295,134 @@ async function startServer() {
 
   const apartmentsDataset = [
     {
-      id: 'apt-horizon-heights',
-      title: 'Horizon Heights Penthouse',
-      neighborhood: 'Nyarutarama',
-      location: 'Nyarutarama, District Gasabo',
-      monthlyRentRwf: 2400000,
-      priceDisplay: 'RWF 2,400,000',
+      id: 'apt-horizon-penthouse',
+      title: 'The Horizon Penthouse',
+      neighborhood: 'Kiyovu',
+      districtLabel: 'Kiyovu District',
+      location: 'Kiyovu District, Central Kigali',
+      monthlyRentUsd: 2400,
+      monthlyRentRwf: 3120000,
+      priceDisplay: '$2,400',
+      priceDisplayRwf: 'RWF 3,120,000',
       beds: 3,
-      baths: 2.5,
+      baths: 2,
+      areaM2: 185,
       floorLevel: '12th Floor',
       floorLevelCategory: '6+',
-      aiScore: 9.8,
-      category: 'Featured',
-      tag: 'New Construction',
+      aiScore: 9.9,
+      category: 'Kiyovu District',
+      amenities: ['Gym', 'Security', 'Parking', 'Concierge'],
+      tags: ['Penthouse', 'Panoramic View'],
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuA9L4OJgOUvfqUbnCl1v-rgiVQpBceNUeNhWfZ0_rliHxExMPPfU7FZrviRNnTKab7XFP-91UHPcEEhvMPa2vfyMpFi8hrK4x-UYo1U8XtfE3OQHiV7J_XdOyIIoELXmXNVU-GIOqSWkTQLiRFJe02JzXU45Fu14N06AUBZnG5aqA_yZoU4FDyZpddYKAt5d17VEsHSYiLjLP7O3patxwuuNk8UylkVj_tNIxZKnhhmsB3vepfwIPsiQS1pPq_ppw-_hSGtsRaoK7kH',
-      coordinates: { lat: -1.9368, lng: 30.0988 },
-      mapPinLabel: '2.4M',
-      description: 'High-end penthouse living with floor-to-ceiling glass windows at sunset, private balcony lounge, 24/7 concierge, and underground valet parking.',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuCCVNPuuLKyLUmITRD4iv_J6YPSEG7K0KJjEJ85wW0jubAAOHu10KyiEB4RLiLrc2NyOectXONaKMDKAkbG3eet9Y4OOOU9nnbT_b15a9J7L_1NXgxrhQNUWlWUVBo9S5_-duxBdcCUTsFLohuJacMYcQivLpCGuuXgpLZLF15ivSJvUQcm015bFm6Pq4RN6mCZ3jTwLuGFspOk1NpyLqr_LHK91rI1ERK-H39dIvfcFBkAVEqAAP6iSdy8ql0la46AzO1Z2sqDOyXr',
+      coordinates: { lat: -1.956, lng: 30.064 },
+      mapPinLabel: '$2,400',
+      description:
+        'Stunning 12th floor residence featuring panoramic views of the city center. Includes 24/7 concierge, private gym access, and biometric security.',
     },
     {
-      id: 'apt-kiyovu-lofts',
-      title: 'The Kiyovu Lofts',
-      neighborhood: 'Kiyovu',
-      location: 'Kiyovu, Central Business District',
-      monthlyRentRwf: 950000,
-      priceDisplay: 'RWF 950,000',
+      id: 'apt-serene-garden-loft',
+      title: 'Serene Garden Loft',
+      neighborhood: 'Kicukiro',
+      districtLabel: 'Kicukiro Heights',
+      location: 'Kicukiro Heights, Kigali',
+      monthlyRentUsd: 1850,
+      monthlyRentRwf: 2405000,
+      priceDisplay: '$1,850',
+      priceDisplayRwf: 'RWF 2,405,000',
+      beds: 2,
+      baths: 2,
+      areaM2: 120,
+      floorLevel: '2nd Floor',
+      floorLevelCategory: '1-5',
+      aiScore: 9.5,
+      category: 'Kicukiro Heights',
+      amenities: ['Gym', 'Security', 'Parking'],
+      tags: ['Garden Terrace', 'High-Speed Fiber'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuB4A5pPbu2n4wff1Tr7qv9v9zry3eeSo9nE_KtITAGPrz9a0R5L8ch4R3UDds7X48FppaN41kUFw7lVZr04BbA7xVq5Z1VhR7Enltmqf760cls17sOd9RKlJmFlZ4KAstBWqF_JfMOcqBIuZO2JgHz2rJTxFynuXDhKdfuJE_k3764WID9z_0Stj3BavZhcLHjoBifj3PlADM_4_5FAokdn2ryLDdthmMxecLVsKeH4EOaLDt-WZf2h66-Gpt0nLBomaaWyYK22QwCL',
+      coordinates: { lat: -1.970, lng: 30.105 },
+      mapPinLabel: '$1,850',
+      description:
+        'A tranquil escape located in the heart of Kicukiro. Minimalist design paired with lush terrace gardens and high-speed fiber connectivity.',
+    },
+    {
+      id: 'apt-executive-studio',
+      title: 'The Executive Studio',
+      neighborhood: 'Nyarugenge',
+      districtLabel: 'Nyarugenge Central',
+      location: 'Nyarugenge Central, Financial District',
+      monthlyRentUsd: 1200,
+      monthlyRentRwf: 1560000,
+      priceDisplay: '$1,200',
+      priceDisplayRwf: 'RWF 1,560,000',
       beds: 1,
       baths: 1,
-      floorLevel: '3rd Floor',
+      areaM2: 75,
+      floorLevel: '5th Floor',
       floorLevelCategory: '1-5',
-      aiScore: 8.4,
-      category: 'Eco-Certified',
+      aiScore: 9.3,
+      category: 'Nyarugenge Central',
+      amenities: ['Security', 'Parking', 'Gym'],
+      tags: ['Smart Home', 'Rooftop Lounge'],
       image:
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuDbE739TfZTQEEtWRmI6KY2lRaqSGEkwhiW4nmmSHKwuVnuIU1268aab8JT3I4Aif8HbwdLdR8HhXhMBugo7B6pFbJgyuvV23XyEEJBnDsISBzX2PnRJVM3loUbeX1zjOUNsHzb7983dWN63ZV0wpCkySoiZbwp1EsLGUbE9nTZq8jQwjs3P2WtugebwGU6WGbwM44Nnk4S_JaXwVVwuFG-LOvC38vw2q02FZnzqJj8tAydCbYxhjuMm4Ke3MqlIakUhsYlTgvpPaUn',
-      coordinates: { lat: -1.956, lng: 30.064 },
-      mapPinLabel: '950K',
-      description: 'Sleek Scandinavian interior of a living room with warm wood accents, large balcony overlooking rolling green hills of Rwanda, and high-speed fiber.',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAuXDmAhGOsE_s4GLfOwd-Mw01QwuewhhlMARSQ_GJ2i-BlD6AbD-P4XUST-OqxSKs-ueLWWo9R23LuOpLKjZEese6rXorWcBdLYtdev4hJ0HcLjHD0Bq_WKHcgXFwhD8BNpwV42JE4co4zJnjQmCD2ut4DGV0eq7BfU3uJXLOPF3VdEehQxFgpUWQV8_d41EYxRFs-GzqXt32w_YHEdyIOkV7dS4qud9NuTU5AXx-CxWr1FR7Rpq2v9oeEIvZmXN7nZyKSBhQb4zxS',
+      coordinates: { lat: -1.944, lng: 30.061 },
+      mapPinLabel: '$1,200',
+      description:
+        'Optimized for the modern professional. Steps away from the financial district, featuring smart home integration and rooftop lounge access.',
     },
     {
       id: 'apt-kimihurura-garden-suites',
       title: 'Kimihurura Garden Suites',
       neighborhood: 'Kimihurura',
-      location: 'Kimihurura, Gasabo',
-      monthlyRentRwf: 1800000,
-      priceDisplay: 'RWF 1,800,000',
+      districtLabel: 'Kimihurura Ridge',
+      location: 'Kimihurura, Gasabo, Kigali',
+      monthlyRentUsd: 1800,
+      monthlyRentRwf: 2340000,
+      priceDisplay: '$1,800',
+      priceDisplayRwf: 'RWF 2,340,000',
       beds: 2,
       baths: 2,
+      areaM2: 140,
       floorLevel: 'Ground',
       floorLevelCategory: 'Ground',
-      aiScore: 9.1,
-      category: 'Price on request',
+      aiScore: 9.4,
+      category: 'Kimihurura Ridge',
+      amenities: ['Gym', 'Security', 'Parking'],
+      tags: ['Pool View', 'Private Garden Patio'],
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuAufnkaZ4rdFl3uxX5o5ILbYJk3wSWx7h3ZVo2qg_t2cAOGoIK290ODFUXHBS8dUYes8anKezaamrv1mrcP8qGvFTKFgF370KwYwS06Z5WgtPgrYAheH2ZdXx5DGC85XSEU2hkabtYXjptOjOcFBDK_GXnhMh0cedDYHYfT1PSOgldaYeqxj57SJOywVMPqBUs2aOdOm3L7cl8OIJJPxPNYqitFWlPB7eSHJrnNrvPVkSAVpz3xfBOq7N0a7q43CwPBcMtnTdgaaixJ',
       coordinates: { lat: -1.961, lng: 30.088 },
-      mapPinLabel: '1.8M',
-      description: 'Luxury infinity pool and private garden patio at dusk, reflecting the city lights of Kigali under a deep indigo sky.',
+      mapPinLabel: '$1,800',
+      description:
+        'Luxury infinity pool and private garden patio at dusk, reflecting the city lights of Kigali under a deep indigo sky.',
+    },
+    {
+      id: 'apt-horizon-heights',
+      title: 'Nyarutarama Golf Panorama Penthouse',
+      neighborhood: 'Nyarutarama',
+      districtLabel: 'Nyarutarama Enclave',
+      location: 'Nyarutarama, District Gasabo',
+      monthlyRentUsd: 2600,
+      monthlyRentRwf: 3380000,
+      priceDisplay: '$2,600',
+      priceDisplayRwf: 'RWF 3,380,000',
+      beds: 3,
+      baths: 2.5,
+      areaM2: 210,
+      floorLevel: '14th Floor',
+      floorLevelCategory: '6+',
+      aiScore: 9.8,
+      category: 'Nyarutarama Enclave',
+      amenities: ['Gym', 'Security', 'Parking', 'Concierge'],
+      tags: ['Golf Course Vista', 'Underground Valet'],
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA9L4OJgOUvfqUbnCl1v-rgiVQpBceNUeNhWfZ0_rliHxExMPPfU7FZrviRNnTKab7XFP-91UHPcEEhvMPa2vfyMpFi8hrK4x-UYo1U8XtfE3OQHiV7J_XdOyIIoELXmXNVU-GIOqSWkTQLiRFJe02JzXU45Fu14N06AUBZnG5aqA_yZoU4FDyZpddYKAt5d17VEsHSYiLjLP7O3patxwuuNk8UylkVj_tNIxZKnhhmsB3vepfwIPsiQS1pPq_ppw-_hSGtsRaoK7kH',
+      coordinates: { lat: -1.9368, lng: 30.0988 },
+      mapPinLabel: '$2,600',
+      description:
+        'High-end penthouse living with floor-to-ceiling glass windows at sunset, private balcony lounge, 24/7 concierge, and underground valet parking.',
     },
   ];
 
@@ -1642,16 +1714,44 @@ async function startServer() {
   // 11. API: Apartments for Rent
   app.get('/api/apartments', (req: Request, res: Response) => {
     let list = [...apartmentsDataset];
-    const { floorLevel, bedrooms } = req.query;
+    const { floorLevel, bedrooms, gym, security, parking, search } = req.query;
 
     if (floorLevel && floorLevel !== 'All') {
-      list = list.filter((a) => a.floorLevelCategory === floorLevel);
+      list = list.filter((a) => a.floorLevelCategory === floorLevel || a.floorLevel.toLowerCase().includes(String(floorLevel).toLowerCase()));
     }
     if (bedrooms) {
       list = list.filter((a) => a.beds >= Number(bedrooms));
     }
+    if (gym === 'true') {
+      list = list.filter((a) => a.amenities.includes('Gym'));
+    }
+    if (security === 'true') {
+      list = list.filter((a) => a.amenities.includes('Security'));
+    }
+    if (parking === 'true') {
+      list = list.filter((a) => a.amenities.includes('Parking'));
+    }
+    if (search) {
+      const q = String(search).toLowerCase();
+      list = list.filter(
+        (a) =>
+          a.title.toLowerCase().includes(q) ||
+          a.location.toLowerCase().includes(q) ||
+          a.neighborhood.toLowerCase().includes(q) ||
+          a.description.toLowerCase().includes(q)
+      );
+    }
 
     res.json({ success: true, count: list.length, apartments: list });
+  });
+
+  app.get('/api/apartments/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const apt = apartmentsDataset.find((a) => a.id === id);
+    if (!apt) {
+      return res.status(404).json({ success: false, error: 'Apartment not found' });
+    }
+    res.json({ success: true, apartment: apt });
   });
 
   // 12. API: Strategic Land Plots
